@@ -40,6 +40,15 @@ function RouterConfig({ history, app }) {
         });
       },
     },
+    {
+      path: '/Calculator',
+      name: 'Calculator',
+      getComponent(nextState, cb) {
+        require.ensure([], (require) => {
+          cb(null, require('./routes/Calculator'));
+        });
+      },
+    },
   ];
 
   return <Router history={history} routes={routes} />;
