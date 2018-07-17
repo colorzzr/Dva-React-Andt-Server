@@ -18,8 +18,8 @@ function Header({ location }) {
       <Menu.Item key="/counter">
         <Link to="/counter"><Icon type="frown-circle" />Counter</Link>
       </Menu.Item>
-      <Menu.Item key="/antd">
-        <a href="https://github.com/dvajs/dva">dva</a>
+      <Menu.Item key="/Calculator">
+        <Link to="/Calculator">Calculator</Link>
       </Menu.Item>
     </Menu>
   );
