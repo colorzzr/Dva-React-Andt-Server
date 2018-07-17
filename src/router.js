@@ -30,6 +30,16 @@ function RouterConfig({ history, app }) {
         });
       },
     },
+    {
+      path: '/counter',
+      name: 'CounterTop',
+      getComponent(nextState, cb) {
+        require.ensure([], (require) => {
+          registerModel(app, require('./models/CounterMod'));
+          cb(null, require('./routes/Counter'));
+        });
+      },
+    },
   ];
 
   return <Router history={history} routes={routes} />;
