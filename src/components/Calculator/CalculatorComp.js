@@ -19,12 +19,11 @@ function objDeepCopy(source) {
   return sourceCopy;
 }
 
-let currentNum = '';
 class CalculatorComp extends PureComponent {
   constructor(props) {
     super(props);
 
-    this.handleInputChange = this.handleInputChange.bind(this);
+    // this.handleInputChange = this.handleInputChange.bind(this);
     this.opClick = this.opClick.bind(this);
     this.numberClick = this.numberClick.bind(this);
     this.sendToBack = this.sendToBack.bind(this);
@@ -33,27 +32,25 @@ class CalculatorComp extends PureComponent {
 
     this.state = {
       input: '',
+      currentNumber: '',
       inputStr: [],
       OperatingMode: 0,
       answer: '',
     };
   }
 
-  handleInputChange(e) {
-    const value = e.target.value;
-    // console.log(value);
-    this.setState({ input: value });
-  }
-
   // deal with the delete button
   handleDelete() {
-    let { input } = this.state;
+    let { input, currentNumber } = this.state;
     const { inputStr } = this.state;
     const tempStr = objDeepCopy(inputStr);
 
-  // remove the last item in array if lenght > 0
-    if (tempStr.length > 0) {
-    // remove the last item in array
+    // remove the last item in array if lenght > 0
+    if (currentNumber.length !== 0) {
+      currentNumber = currentNumber.substring(0, currentNumber.length - 1);
+      input = input.substring(0, input.length - 1);
+    } else if (tempStr.length > 0) {
+      // remove the last item in array
       const lastItem = tempStr.pop();
       if (lastItem === 'exp(') {
         input = input.substring(0, input.length - 4);
@@ -66,31 +63,31 @@ class CalculatorComp extends PureComponent {
   // store back to this.state
     this.setState({
       input,
+      currentNumber,
       inputStr: tempStr,
     });
   }
 
   numberClick(e) {
   // console.log(e.target.id);
-    let { input } = this.state;
+    let { input, currentNumber } = this.state;
     // let tempStr = objDeepCopy(inputStr);
     input += e.target.id;
-    currentNum += e.target.id;
+    currentNumber += e.target.id;
 
     this.setState({
       input,
-      // inputStr:objDeepCopy(tempStr),
+      currentNumber,
     });
   }
 
   opClick(e) {
     let { input } = this.state;
-    const { inputStr } = this.state;
+    const { inputStr, currentNumber } = this.state;
     const tempStr = objDeepCopy(inputStr);
     input += e.target.id;
 
-    tempStr.push(currentNum);
-    currentNum = '';
+    tempStr.push(currentNumber);
 
     if (e.target.id === '+') {
       tempStr.push('a');
@@ -101,18 +98,18 @@ class CalculatorComp extends PureComponent {
     this.setState({
       input,
       inputStr: objDeepCopy(tempStr),
+      currentNumber: '',
     });
   }
 
   sendToBack() {
-    const { inputStr, OperatingMode } = this.state;
+    const { inputStr, OperatingMode, currentNumber } = this.state;
     // push the current one then clear
-    inputStr.push(currentNum);
-    currentNum = '';
-console.log(parseInt(OperatingMode,0));
+    inputStr.push(currentNumber);
+
     const obj = {
       InputOp: inputStr,
-      OperatingMode: parseInt(OperatingMode,0),
+      OperatingMode: parseInt(OperatingMode, 0),
     };
 
     // sending the request
@@ -125,7 +122,6 @@ console.log(parseInt(OperatingMode,0));
 
         // IDK why this is so magic that I need convert from []byte->string->json
           sendBackData = JSON.parse(sendBackData);
-        // console.log(sendBackData);
         // if no error show result
           if (sendBackData.ErrorMsg === 'Good') {
             let answer = '';
@@ -134,7 +130,7 @@ console.log(parseInt(OperatingMode,0));
             } else {
               answer = `${sendBackData.Real} + ${sendBackData.Imaginary}i`;
             }
-		console.log(answer);
+
             this.setState({
               answer,
             });
@@ -149,6 +145,7 @@ console.log(parseInt(OperatingMode,0));
     // reset everything
     this.setState({
       input: '',
+      currentNumber: '',
       inputStr: [],
     });
   }
@@ -157,9 +154,11 @@ console.log(parseInt(OperatingMode,0));
     this.setState({
       OperatingMode: e.target.id,
     });
-console.log(e.target);
   }
-
+  // <Button onClick={this.showState.bind(this)}> state </Button>
+  // showState(){
+  //   console.log(this.state);
+  // }
 
   render() {
     const { input, answer, OperatingMode } = this.state;
@@ -173,7 +172,6 @@ console.log(e.target);
       currentName = 'Absolute Mode';
     }
 
-	console.log(currentName);
 
     return (
       <Layout>

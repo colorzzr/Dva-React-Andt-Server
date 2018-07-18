@@ -18,6 +18,7 @@ function IndexPage({ location }) {
   );
 }
 
+
 IndexPage.propTypes = {
 };
 
