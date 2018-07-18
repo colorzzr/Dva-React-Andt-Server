@@ -109,10 +109,10 @@ class CalculatorComp extends PureComponent {
     // push the current one then clear
     inputStr.push(currentNum);
     currentNum = '';
-
+console.log(parseInt(OperatingMode,0));
     const obj = {
       InputOp: inputStr,
-      OperatingMode: parseInt(OperatingMode, 64),
+      OperatingMode: parseInt(OperatingMode,0),
     };
 
     // sending the request
@@ -134,6 +134,7 @@ class CalculatorComp extends PureComponent {
             } else {
               answer = `${sendBackData.Real} + ${sendBackData.Imaginary}i`;
             }
+		console.log(answer);
             this.setState({
               answer,
             });
@@ -156,6 +157,7 @@ class CalculatorComp extends PureComponent {
     this.setState({
       OperatingMode: e.target.id,
     });
+console.log(e.target);
   }
 
 
@@ -170,6 +172,8 @@ class CalculatorComp extends PureComponent {
     } else {
       currentName = 'Absolute Mode';
     }
+
+	console.log(currentName);
 
     return (
       <Layout>

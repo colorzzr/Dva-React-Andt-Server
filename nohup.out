@@ -1,0 +1,88 @@
+yarn run v1.7.0
+$ roadhog server
+[HPM] Proxy created: /api  ->  http://jsonplaceholder.typicode.com/
+[HPM] Proxy rewrite rule created: "^/api" ~> ""
+Starting the development server...
+
+yarn run v1.7.0
+$ roadhog server
+[HPM] Proxy created: /api  ->  http://jsonplaceholder.typicode.com/
+[HPM] Proxy rewrite rule created: "^/api" ~> ""
+Starting the development server...
+
+Compiled successfully in 9.3s!
+
+The app is running at:
+
+  http://localhost:8000/
+
+Note that the development build is not optimized.
+To create a production build, use npm run build.
+
+Done in 3178.05s.
+yarn run v1.7.0
+$ roadhog server
+[HPM] Proxy created: /api  ->  http://jsonplaceholder.typicode.com/
+[HPM] Proxy rewrite rule created: "^/api" ~> ""
+Starting the development server...
+
+yarn run v1.7.0
+$ roadhog server
+[HPM] Proxy created: /api  ->  http://jsonplaceholder.typicode.com/
+[HPM] Proxy rewrite rule created: "^/api" ~> ""
+Starting the development server...
+
+Compiled successfully in 9.0s!
+
+The app is running at:
+
+  http://localhost:8000/
+
+Note that the development build is not optimized.
+To create a production build, use npm run build.
+
+yarn run v1.7.0
+$ roadhog server
+[HPM] Proxy created: /api  ->  http://jsonplaceholder.typicode.com/
+[HPM] Proxy rewrite rule created: "^/api" ~> ""
+Starting the development server...
+
+Compiled successfully in 9.0s!
+
+The app is running at:
+
+  http://localhost:8000/
+
+Note that the development build is not optimized.
+To create a production build, use npm run build.
+
+Compiling...
+Compiled successfully in 1.8s!
+Compiling...
+Compiled successfully in 0.9s!
+Compiling...
+Compiled successfully in 0.3s!
+Compiling...
+Compiled successfully in 0.8s!
+Compiling...
+Compiled successfully in 0.9s!
+Compiling...
+Failed to compile.
+
+Error in ./src/components/Calculator/CalculatorComp.js
+Syntax error: Unexpected token, expected , (112:35)
+
+  110 |     inputStr.push(currentNum);
+  111 |     currentNum = '';
+> 112 | console.log(parseInt(OperatingMode);
+      |                                    ^
+  113 |     const obj = {
+  114 |       InputOp: inputStr,
+  115 |       OperatingMode: parseInt(OperatingMode),
+
+ @ ./src/routes/Calculator.js 15:22-72
+
+Compiling...
+Compiled successfully in 1.3s!
+Compiling...
+Compiled successfully in 0.8s!
