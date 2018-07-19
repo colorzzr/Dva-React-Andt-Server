@@ -125,10 +125,13 @@ class CalculatorComp extends PureComponent {
         // if no error show result
           if (sendBackData.ErrorMsg === 'Good') {
             let answer = '';
+            // forming different answer
             if (OperatingMode === 0) {
               answer = sendBackData.Real;
-            } else {
+            } else if (OperatingMode === 1) {
               answer = `${sendBackData.Real} + ${sendBackData.Imaginary}i`;
+            } else {
+              answer = `模长:${sendBackData.Real} + 角度:${sendBackData.Imaginary}`;
             }
 
             this.setState({
@@ -155,6 +158,16 @@ class CalculatorComp extends PureComponent {
       OperatingMode: e.target.id,
     });
   }
+
+  clear() {
+    this.setState({
+      input: '',
+      currentNumber: '',
+      inputStr: [],
+      OperatingMode: 0,
+      answer: '',
+    });
+  }
   // <Button onClick={this.showState.bind(this)}> state </Button>
   // showState(){
   //   console.log(this.state);
@@ -171,7 +184,7 @@ class CalculatorComp extends PureComponent {
     } else {
       currentName = 'Absolute Mode';
     }
-
+    const imagenryEnable = OperatingMode === 0;
 
     return (
       <Layout>
@@ -206,7 +219,8 @@ class CalculatorComp extends PureComponent {
               <Button id="<" onClick={this.handleDelete} className={style.button}> <Icon type="left-square-o" /> </Button>
               <Button id="^" onClick={this.opClick} className={style.button}> ^ </Button>
               <Button id="exp(" onClick={this.opClick} className={style.button}> exp </Button>
-              <Button id="i" onClick={this.numberClick} className={style.button}> i </Button>
+              <Button id="i" onClick={this.numberClick} disabled={imagenryEnable} className={style.button}> i </Button>
+              <Button id="clear" onClick={this.clear.bind(this)} className={style.button}> clc </Button>
               <br />
               <Button id={0} onClick={this.modeChange} className={style.modeButton}> Real </Button>
               <Button

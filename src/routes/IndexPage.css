@@ -27,3 +27,17 @@
 .list code {
   background: #f7f7f7;
 }
+
+.indexPage {
+  text-align: center;
+  height: 160px;
+  width: 800px;
+  line-height: 160px;
+  background: #364d79;
+  overflow: hidden;
+  color: #fff;
+}
+
+.CarouselWord {
+  color: #fff;
+}
