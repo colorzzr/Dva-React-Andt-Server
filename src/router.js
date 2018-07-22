@@ -49,6 +49,16 @@ function RouterConfig({ history, app }) {
         });
       },
     },
+    {
+      path: '/History',
+      name: 'History',
+      getComponent(nextState, cb) {
+        require.ensure([], (require) => {
+          registerModel(app, require('./models/History'));
+          cb(null, require('./routes/History'));
+        });
+      },
+    },
   ];
 
   return <Router history={history} routes={routes} />;

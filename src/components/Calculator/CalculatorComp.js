@@ -34,7 +34,7 @@ class CalculatorComp extends PureComponent {
       input: '',
       currentNumber: '',
       inputStr: [],
-      OperatingMode: 0,
+      OperatingMode: '0',
       answer: '',
     };
   }
@@ -112,8 +112,8 @@ class CalculatorComp extends PureComponent {
       OperatingMode: parseInt(OperatingMode, 0),
     };
 
-    // sending the request
-    $.post('http://47.96.95.207:8888/calProcess', {
+    // sending the request 47.96.95.207:8888
+    $.post('http://localhost:8888/calProcess', {
       first: JSON.stringify(obj),
     },
         (data) => {
@@ -125,10 +125,11 @@ class CalculatorComp extends PureComponent {
         // if no error show result
           if (sendBackData.ErrorMsg === 'Good') {
             let answer = '';
+
             // forming different answer
-            if (OperatingMode === 0) {
+            if (OperatingMode === '0') {
               answer = sendBackData.Real;
-            } else if (OperatingMode === 1) {
+            } else if (OperatingMode === '1') {
               answer = `${sendBackData.Real} + ${sendBackData.Imaginary}i`;
             } else {
               answer = `模长:${sendBackData.Real} + 角度:${sendBackData.Imaginary}`;
@@ -176,83 +177,93 @@ class CalculatorComp extends PureComponent {
   render() {
     const { input, answer, OperatingMode } = this.state;
     let currentName = '';
+    let imagenryEnable = true;
     // remember here is string
     if (OperatingMode === '0') {
       currentName = 'Normal Mode';
+      imagenryEnable = true;
     } else if (OperatingMode === '1') {
       currentName = 'Imaginary Mode';
-    } else {
+      imagenryEnable = false;
+    } else if (OperatingMode === '2') {
       currentName = 'Absolute Mode';
+      imagenryEnable = false;
+    } else {
+      currentName = '?? Mode';
+      imagenryEnable = true;
     }
-    const imagenryEnable = OperatingMode === 0;
 
     return (
       <Layout>
-        <div className={style.modeName}>
-          <h3>Current Mode</h3>
-          <h3>{OperatingMode}</h3>
-          <h3>{currentName}</h3>
-        </div>
-        <Layout className={style.outputPanel}>
-          <Content>
-            <h1>Operation</h1>
-            <Input className={style.outputText} value={input} placeholder="Operation" />
-          </Content>
-        </Layout>
+        <Sider className={style.Sider} width={300}>
+          <h1>选择模式</h1>
+          <Button id={0} onClick={this.modeChange} className={style.modeButton}> Real </Button>
+          <Button
+            id={1}
+            onClick={this.modeChange}
+            className={style.modeButton}
+          > Imaginary </Button>
+          <Button
+            id={2}
+            onClick={this.modeChange}
+            className={style.modeButton}
+          > Absolute </Button>
 
-        <Layout className={style.outputPanel}>
-          <Content>
-            <h1>Answer</h1>
-            <Input value={answer} className={style.outputText} placeholder="Answer" />
-          </Content>
-        </Layout>
-        <Layout className={style.inputPanel}>
-          <Sider width={600} className={style.opPanel}>
-            <div >
-              <Button id="+" onClick={this.opClick} className={style.button}> + </Button>
-              <Button id="-" onClick={this.opClick} className={style.button}> - </Button>
-              <Button id="*" onClick={this.opClick} className={style.button}> * </Button>
-              <Button id="/" onClick={this.opClick} className={style.button}> / </Button>
-              <Button id="(" onClick={this.opClick} className={style.button}> ( </Button>
-              <Button id=")" onClick={this.opClick} className={style.button}> ) </Button>
-              <Button id="=" onClick={this.sendToBack} className={style.button}> = </Button>
-              <Button id="<" onClick={this.handleDelete} className={style.button}> <Icon type="left-square-o" /> </Button>
-              <Button id="^" onClick={this.opClick} className={style.button}> ^ </Button>
-              <Button id="exp(" onClick={this.opClick} className={style.button}> exp </Button>
-              <Button id="i" onClick={this.numberClick} disabled={imagenryEnable} className={style.button}> i </Button>
-              <Button id="clear" onClick={this.clear.bind(this)} className={style.button}> clc </Button>
+        </Sider>
+        <Content>
+          <div className={style.modeName}>
+            <h1>Current Mode</h1>
+            <h2>{currentName}</h2>
+          </div>
+          <Layout className={style.outputPanel}>
+            <Content>
+              <h1>Operation</h1>
+              <Input className={style.outputText} value={input} placeholder="Operation" />
+            </Content>
+          </Layout>
+
+          <Layout className={style.outputPanel}>
+            <Content>
+              <h1>Answer</h1>
+              <Input value={answer} className={style.outputText} placeholder="Answer" />
+            </Content>
+          </Layout>
+          <Layout className={style.inputPanel}>
+            <Sider width={600} className={style.opPanel}>
+              <div >
+                <Button id="+" onClick={this.opClick} className={style.button}> + </Button>
+                <Button id="-" onClick={this.opClick} className={style.button}> - </Button>
+                <Button id="*" onClick={this.opClick} className={style.button}> * </Button>
+                <Button id="/" onClick={this.opClick} className={style.button}> / </Button>
+                <Button id="(" onClick={this.opClick} className={style.button}> ( </Button>
+                <Button id=")" onClick={this.opClick} className={style.button}> ) </Button>
+                <Button id="=" onClick={this.sendToBack} className={style.button}> = </Button>
+                <Button id="<" onClick={this.handleDelete} className={style.button}> <Icon type="left-square-o" /> </Button>
+                <Button id="^" onClick={this.opClick} className={style.button}> ^ </Button>
+                <Button id="exp(" onClick={this.opClick} className={style.button}> exp </Button>
+                <Button id="i" onClick={this.numberClick} disabled={imagenryEnable} className={style.button}> i </Button>
+                <Button id="clear" onClick={this.clear.bind(this)} className={style.button}> clc </Button>
+                <br />
+              </div>
+            </Sider>
+
+            <Content>
+              <Button id="1" onClick={this.numberClick} className={style.button}> 1 </Button>
+              <Button id="2" onClick={this.numberClick} className={style.button}> 2 </Button>
+              <Button id="3" onClick={this.numberClick} className={style.button}> 3 </Button>
               <br />
-              <Button id={0} onClick={this.modeChange} className={style.modeButton}> Real </Button>
-              <Button
-                id={1}
-                onClick={this.modeChange}
-                className={style.modeButton}
-              > Imaginary </Button>
-              <Button
-                id={2}
-                onClick={this.modeChange}
-                className={style.modeButton}
-              > Absolute </Button>
-
-            </div>
-          </Sider>
-
-          <Content>
-            <Button id="1" onClick={this.numberClick} className={style.button}> 1 </Button>
-            <Button id="2" onClick={this.numberClick} className={style.button}> 2 </Button>
-            <Button id="3" onClick={this.numberClick} className={style.button}> 3 </Button>
-            <br />
-            <Button id="4" onClick={this.numberClick} className={style.button}> 4 </Button>
-            <Button id="5" onClick={this.numberClick} className={style.button}> 5 </Button>
-            <Button id="6" onClick={this.numberClick} className={style.button}> 6 </Button>
-            <br />
-            <Button id="7" onClick={this.numberClick} className={style.button}> 7 </Button>
-            <Button id="8" onClick={this.numberClick} className={style.button}> 8 </Button>
-            <Button id="9" onClick={this.numberClick} className={style.button}> 9 </Button>
-            <br />
-            <Button id="0" onClick={this.numberClick} className={style.button}> 0 </Button>
-          </Content>
-        </Layout>
+              <Button id="4" onClick={this.numberClick} className={style.button}> 4 </Button>
+              <Button id="5" onClick={this.numberClick} className={style.button}> 5 </Button>
+              <Button id="6" onClick={this.numberClick} className={style.button}> 6 </Button>
+              <br />
+              <Button id="7" onClick={this.numberClick} className={style.button}> 7 </Button>
+              <Button id="8" onClick={this.numberClick} className={style.button}> 8 </Button>
+              <Button id="9" onClick={this.numberClick} className={style.button}> 9 </Button>
+              <br />
+              <Button id="0" onClick={this.numberClick} className={style.button}> 0 </Button>
+            </Content>
+          </Layout>
+        </Content>
       </Layout>
     );
   }

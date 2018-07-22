@@ -1,11 +1,19 @@
 import dva from 'dva';
+import Parse from 'parse';
 import { browserHistory } from 'dva/router';
 import createLoading from 'dva-loading';
 import { message } from 'antd';
 import './index.html';
 import './index.css';
 
+
 const ERROR_MSG_DURATION = 3; // 3 秒
+
+Parse.initialize('Calculator', 'UpdKbelU7zvtsCCW', 'jQAr0Xqhbkw45mSW');
+Parse.serverURL = 'http://127.0.0.1:8080/v1';
+// Parse.serverURL = 'http://127.0.0.1:8080/v1';
+
+Parse.masterKey = 'jQAr0Xqhbkw45mSW';
 
 // 1. Initialize
 const app = dva({

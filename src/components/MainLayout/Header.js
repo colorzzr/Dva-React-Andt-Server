@@ -19,7 +19,10 @@ function Header({ location }) {
         <Link to="/counter"><Icon type="frown-circle" />Counter</Link>
       </Menu.Item>
       <Menu.Item key="/Calculator">
-        <Link to="/Calculator">Calculator</Link>
+        <Link to="/Calculator"><Icon type="calculator" />Calculator</Link>
+      </Menu.Item>
+      <Menu.Item key="/History">
+        <Link to="/History"><Icon type="api" />History</Link>
       </Menu.Item>
     </Menu>
   );
