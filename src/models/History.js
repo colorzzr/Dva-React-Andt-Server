@@ -22,12 +22,12 @@ export default {
   },
 
   reducers: {
-    saveData(state, {payload}) {
+    saveData(state, { payload }) {
       const historyData = payload.map((v) => {
-        const real = v.get("real");
-        const imaginary = v.get("imaginary");
-        const errorMsg = v.get("errorMsg");
-        const createdAt = new Date(v.get("createdAt"));
+        const real = v.get('real');
+        const imaginary = v.get('imaginary');
+        const errorMsg = v.get('errorMsg');
+        const createdAt = new Date(v.get('createdAt'));
 
 
         return {
