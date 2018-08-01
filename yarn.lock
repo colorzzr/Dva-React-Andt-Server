@@ -4652,6 +4652,10 @@ parse-json@^2.2.0:
   dependencies:
     error-ex "^1.2.0"
 
+parse-react@^0.5.2:
+  version "0.5.2"
+  resolved "https://registry.yarnpkg.com/parse-react/-/parse-react-0.5.2.tgz#980f776b39f6bd1d2d6d5902a1a916678666e4ae"
+
 parse@^1.11.1:
   version "1.11.1"
   resolved "https://registry.yarnpkg.com/parse/-/parse-1.11.1.tgz#558e539d42d9fb89210e082209d6f3b03d5faed5"

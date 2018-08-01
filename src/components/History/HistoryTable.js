@@ -4,17 +4,21 @@ import { Table, Button } from 'antd';
 
 
 const columns = [{
-  title: 'Name',
-  dataIndex: 'name',
-  key: 'name',
+  title: 'Real',
+  dataIndex: 'real',
+  key: 'real',
 }, {
-  title: 'Age',
-  dataIndex: 'age',
-  key: 'age',
+  title: 'Imaginary',
+  dataIndex: 'imaginary',
+  key: 'imaginary',
 }, {
-  title: 'Address',
-  dataIndex: 'address',
-  key: 'address',
+  title: 'Error Massage',
+  dataIndex: 'errorMsg',
+  key: 'errorMsg',
+},{
+  title: 'Time',
+  dataIndex: 'createdAt',
+  key: 'createdAt',
 }];
 
 const data = [{
@@ -40,24 +44,44 @@ class HistoryTable extends PureComponent {
     this.state = {};
   }
 
-
-  test() {
+  componentDidMount() {
     const { dispatch } = this.props;
     dispatch({
-      type: 'history/fetch',
+      type: 'historyDatas/fetch',
     });
   }
+
+
+
+  test() {
+    const { historyDatas } = this.props;
+    console.log(historyDatas);
+  }
   render() {
+    const { historyDatas } = this.props;
+    const {historyData} = historyDatas;
+
+    // constructe the page footer
+    const paginationProps = {
+      showQuickJumper: true,
+      pageSize: 10,
+    };
+
+
     return (
       <div>
         <h1>HHHISTORY</h1>
         <Button onClick={this.test.bind(this)}>test</Button>
-        <Table columns={columns} dataSource={data} />
+        <Table 
+          columns={columns} 
+          dataSource={historyData} 
+          pagination={paginationProps}
+        />
       </div>
     );
   }
 }
 
-export default connect(({ history }) => ({
-  history,
+export default connect(({ historyDatas }) => ({
+  historyDatas,
 }))(HistoryTable);

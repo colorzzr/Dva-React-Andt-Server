@@ -113,7 +113,7 @@ class CalculatorComp extends PureComponent {
     };
 
     // sending the request 47.96.95.207:8888
-    $.post('http://47.96.95.207:8888/calProcess', {
+    $.post('http://127.0.0.1:8888/calProcess', {
       first: JSON.stringify(obj),
     },
         (data) => {

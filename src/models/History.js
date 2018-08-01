@@ -2,7 +2,7 @@ import Parse from 'parse';
 // import { toPlainObject } from 'lodash';
 
 export default {
-  namespace: 'history',
+  namespace: 'historyDatas',
   state: {
     historyData: [],
   },
@@ -13,6 +13,7 @@ export default {
       query.descending('createdAt');
       const response = yield query.find();
 
+      console.log(response);
       yield put({
         type: 'saveData',
         payload: response,
@@ -21,14 +22,25 @@ export default {
   },
 
   reducers: {
-    saveData(state) {
-      // const historyData = payload.map((v) => {
-        // return _.toPlainObject(v);
-      // });
+    saveData(state, {payload}) {
+      const historyData = payload.map((v) => {
+        const real = v.get("real");
+        const imaginary = v.get("imaginary");
+        const errorMsg = v.get("errorMsg");
+        const createdAt = new Date(v.get("createdAt"));
+
+
+        return {
+          real,
+          imaginary,
+          errorMsg,
+          createdAt: createdAt.toDateString(),
+        };
+      });
 
       return {
         ...state,
-        // historyData,
+        historyData,
       };
     },
   },
