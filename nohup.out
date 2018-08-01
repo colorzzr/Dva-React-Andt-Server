@@ -86,3 +86,176 @@ Compiling...
 Compiled successfully in 1.3s!
 Compiling...
 Compiled successfully in 0.8s!
+yarn run v1.7.0
+$ roadhog server
+[HPM] Proxy created: /api  ->  http://jsonplaceholder.typicode.com/
+[HPM] Proxy rewrite rule created: "^/api" ~> ""
+Starting the development server...
+
+[babel-plugin-dva-hmr][INFO] got routerPath ./router
+Compiled successfully in 10.9s!
+
+The app is running at:
+
+  http://localhost:8000/
+
+Note that the development build is not optimized.
+To create a production build, use npm run build.
+
+yarn run v1.7.0
+$ roadhog server
+[HPM] Proxy created: /api  ->  http://jsonplaceholder.typicode.com/
+[HPM] Proxy rewrite rule created: "^/api" ~> ""
+Starting the development server...
+
+Compiled successfully in 9.5s!
+
+The app is running at:
+
+  http://localhost:8000/
+
+Note that the development build is not optimized.
+To create a production build, use npm run build.
+
+yarn run v1.7.0
+$ roadhog server
+[HPM] Proxy created: /api  ->  http://jsonplaceholder.typicode.com/
+[HPM] Proxy rewrite rule created: "^/api" ~> ""
+Starting the development server...
+
+Compiled successfully in 10.5s!
+
+The app is running at:
+
+  http://localhost:8000/
+
+Note that the development build is not optimized.
+To create a production build, use npm run build.
+
+yarn run v1.7.0
+$ roadhog server
+[HPM] Proxy created: /api  ->  http://jsonplaceholder.typicode.com/
+[HPM] Proxy rewrite rule created: "^/api" ~> ""
+Starting the development server...
+
+[babel-plugin-dva-hmr][INFO] got routerPath ./router
+Compiled successfully in 12.6s!
+
+The app is running at:
+
+  http://localhost:8000/
+
+Note that the development build is not optimized.
+To create a production build, use npm run build.
+
+Done in 610.09s.
+yarn run v1.7.0
+$ roadhog server
+[HPM] Proxy created: /api  ->  http://jsonplaceholder.typicode.com/
+[HPM] Proxy rewrite rule created: "^/api" ~> ""
+Starting the development server...
+
+Compiled successfully in 10.8s!
+
+The app is running at:
+
+  http://localhost:8000/
+
+Note that the development build is not optimized.
+To create a production build, use npm run build.
+
+yarn run v1.7.0
+$ roadhog server
+[HPM] Proxy created: /api  ->  http://jsonplaceholder.typicode.com/
+[HPM] Proxy rewrite rule created: "^/api" ~> ""
+Starting the development server...
+
+Compiled successfully in 10.0s!
+
+The app is running at:
+
+  http://localhost:8000/
+
+Note that the development build is not optimized.
+To create a production build, use npm run build.
+
+yarn run v1.7.0
+$ roadhog server
+[HPM] Proxy created: /api  ->  http://jsonplaceholder.typicode.com/
+[HPM] Proxy rewrite rule created: "^/api" ~> ""
+Starting the development server...
+
+[babel-plugin-dva-hmr][INFO] got routerPath ./router
+Compiled successfully in 10.2s!
+
+The app is running at:
+
+  http://localhost:8000/
+
+Note that the development build is not optimized.
+To create a production build, use npm run build.
+
+Compiling...
+Compiled successfully in 1.0s!
+yarn run v1.7.0
+$ roadhog server
+[HPM] Proxy created: /api  ->  http://jsonplaceholder.typicode.com/
+[HPM] Proxy rewrite rule created: "^/api" ~> ""
+Starting the development server...
+
+Compiled successfully in 11.0s!
+
+The app is running at:
+
+  http://localhost:8000/
+
+Note that the development build is not optimized.
+To create a production build, use npm run build.
+
+yarn run v1.7.0
+$ roadhog server
+[HPM] Proxy created: /api  ->  http://jsonplaceholder.typicode.com/
+[HPM] Proxy rewrite rule created: "^/api" ~> ""
+Starting the development server...
+
+Compiled successfully in 10.5s!
+
+The app is running at:
+
+  http://localhost:8000/
+
+Note that the development build is not optimized.
+To create a production build, use npm run build.
+
+yarn run v1.7.0
+$ roadhog server
+[HPM] Proxy created: /api  ->  http://jsonplaceholder.typicode.com/
+[HPM] Proxy rewrite rule created: "^/api" ~> ""
+Starting the development server...
+
+Compiled successfully in 9.9s!
+
+The app is running at:
+
+  http://localhost:8000/
+
+Note that the development build is not optimized.
+To create a production build, use npm run build.
+
+yarn run v1.7.0
+$ roadhog server
+[HPM] Proxy created: /api  ->  http://jsonplaceholder.typicode.com/
+[HPM] Proxy rewrite rule created: "^/api" ~> ""
+Starting the development server...
+
+Compiled successfully in 9.9s!
+
+The app is running at:
+
+  http://localhost:8000/
+
+Note that the development build is not optimized.
+To create a production build, use npm run build.
+
+Compiling...
+Compiled successfully in 2.6s!
