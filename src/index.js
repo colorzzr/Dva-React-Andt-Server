@@ -10,7 +10,8 @@ import './index.css';
 const ERROR_MSG_DURATION = 3; // 3 秒
 
 Parse.initialize('Calculator', 'UpdKbelU7zvtsCCW', 'jQAr0Xqhbkw45mSW');
-Parse.serverURL = 'http://127.0.0.1:8080/v1';
+// change URL to server ip not localhost
+Parse.serverURL = 'http://47.96.95.207:8080/v1';
 // Parse.serverURL = 'http://127.0.0.1:8080/v1';
 
 Parse.masterKey = 'jQAr0Xqhbkw45mSW';
