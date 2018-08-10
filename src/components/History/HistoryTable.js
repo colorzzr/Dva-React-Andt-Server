@@ -19,34 +19,76 @@ const columns = [{
   title: 'Time',
   dataIndex: 'createdAt',
   key: 'createdAt',
+}, {
+  title: 'Operation Mode',
+  dataIndex: 'operationMode',
+  key: 'operationMode',
 }];
+
 
 class HistoryTable extends PureComponent {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      page: 1,
+      pageSize: 10,
+      dataCount: 0,
+    };
   }
 
   componentDidMount() {
     const { dispatch } = this.props;
+    const { page, pageSize } = this.state;
+
+    // get the total count
+    dispatch({
+      type: 'historyDatas/count',
+    });
+
     dispatch({
       type: 'historyDatas/fetch',
+      payload: {
+        skip: (page - 1) * pageSize,
+        limit: pageSize,
+      },
     });
   }
 
+  handleChange(pagination, fliter, sorter) {
+    const { current } = pagination;
+    const { dispatch } = this.props;
+    console.log(pagination, fliter, sorter);
+
+    const { pageSize } = this.state;
+    dispatch({
+      type: 'historyDatas/fetch',
+      payload: {
+        skip: (current - 1) * pageSize,
+        limit: pageSize,
+      },
+    });
+
+    this.setState({
+      page: current,
+    });
+  }
 
   test() {
-    const { historyDatas } = this.props;
-    console.log(historyDatas);
+    console.log(this.state);
   }
+
   render() {
     const { historyDatas } = this.props;
-    const { historyData } = historyDatas;
+    const { historyData, count } = historyDatas;
+    const { page, pageSize } = this.state;
 
     // constructe the page footer
     const paginationProps = {
+      current: page,
+      pageSize,
       showQuickJumper: true,
-      pageSize: 10,
+      total: count,
+      showTotal: total => `共 ${total} 条`,
     };
 
 
@@ -58,7 +100,9 @@ class HistoryTable extends PureComponent {
           columns={columns}
           dataSource={historyData}
           pagination={paginationProps}
+          onChange={this.handleChange.bind(this)}
         />
+
       </div>
     );
   }
