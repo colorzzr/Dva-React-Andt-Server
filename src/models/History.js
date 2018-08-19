@@ -6,6 +6,7 @@ export default {
   state: {
     historyData: [],
     count: 0,
+    frequenceData: [],
   },
   effects: {
     *count(_, { put }) {
@@ -13,7 +14,7 @@ export default {
       const query = new Parse.Query(returnPack);
       const count = yield query.count();
       yield put({
-        type: 'saveCount',
+        type: 'save',
         payload: { count },
       });
     },
@@ -34,10 +35,34 @@ export default {
         payload: response,
       });
     },
+
+    *fetchFrequence(_, { put }) {
+      const returnPack = Parse.Object.extend('returnPack');
+
+      let pipeline = {};
+      // ----------------------------------------voltage pipelining-------------------------------
+      pipeline = {
+        group: {
+          date: 'date',
+          count: { sum: 1 },
+        },
+      };
+      const dateQ = new Parse.Query(returnPack);
+      let frequenceData = yield dateQ.aggregate(pipeline);
+      
+
+      frequenceData.push({count:3, date:"2018-July-9"});
+      console.log(frequenceData);
+
+      yield put({
+        type: 'save',
+        payload: { frequenceData },
+      });
+    }
   },
 
   reducers: {
-    saveCount(state, { payload }) {
+    save(state, { payload }) {
       return {
         ...state,
         ...payload,
@@ -49,6 +74,7 @@ export default {
         const imaginary = v.get('imaginary');
         const errorMsg = v.get('errorMsg');
         const createdAt = new Date(v.get('createdAt'));
+        const date = v.get('date');
         const operationModeIndex = v.get('operationMode');
         let operationMode;
         if (operationModeIndex === 0) {
@@ -65,7 +91,7 @@ export default {
           real,
           imaginary,
           errorMsg,
-          createdAt: createdAt.toDateString(),
+          createdAt: date,
           operationMode,
           key,
 

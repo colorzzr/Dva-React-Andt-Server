@@ -1,10 +1,10 @@
 import $ from 'jquery';
 import React, { PureComponent } from 'react';
-import { Input, Button, Layout, Icon } from 'antd';
+import { Input, Menu, Button, Layout, Icon } from 'antd';
 import style from './CalculatorComp.less';
 
 const { Content, Sider } = Layout;
-
+const SubMenu = Menu.SubMenu;
 
 function objDeepCopy(source) {
   // check it is the array or object
@@ -114,6 +114,7 @@ class CalculatorComp extends PureComponent {
 
     // sending the request 47.96.95.207:8888
     $.post('http://18.222.148.18:8888/calProcess', {
+    // $.post('http://localhost:8888/calProcess', {
       first: JSON.stringify(obj),
     },
         (data) => {
@@ -155,6 +156,7 @@ class CalculatorComp extends PureComponent {
   }
 
   modeChange(e) {
+    console.log(e);
     this.setState({
       OperatingMode: e.target.id,
     });
@@ -197,17 +199,85 @@ class CalculatorComp extends PureComponent {
       <Layout>
         <Sider className={style.Sider} width={300}>
           <h1>选择模式</h1>
-          <Button id={0} onClick={this.modeChange} className={style.modeButton}> Real </Button>
-          <Button
-            id={1}
-            onClick={this.modeChange}
-            className={style.modeButton}
-          > Imaginary </Button>
-          <Button
-            id={2}
-            onClick={this.modeChange}
-            className={style.modeButton}
-          > Absolute </Button>
+
+          <Menu style={{ height: '100%' }} defaultSelectedKeys={['0']} mode="inline">
+            <SubMenu
+              key="Normal Calculation"
+              title={<span><Icon type="user" /><span>Normal Calculation</span></span>}
+            >
+              <Menu.Item key="Real" style={{ height: '90px' }}>
+                <Button id={0} onClick={this.modeChange} className={style.modeButton}> Real </Button>
+              </Menu.Item>
+              <Menu.Item key="Imaginary" style={{ height: '90px' }}>
+                <Button
+                  id={1}
+                  onClick={this.modeChange}
+                  className={style.modeButton}
+                > Imaginary </Button>
+              </Menu.Item>
+              <Menu.Item key="Absolute" style={{ height: '90px' }}>
+                <Button
+                  id={2}
+                  onClick={this.modeChange}
+                  className={style.modeButton} 
+                > Absolute </Button>
+              </Menu.Item>
+            </SubMenu>
+
+            <SubMenu
+              key="One ValFunc Calculation"
+              title={<span><Icon type="user" /><span>One ValFunc Calculation(Not Finish)</span></span>}
+            >
+              <Menu.Item key="1st Order" style={{ height: '90px' }}>
+                <Button id={3} onClick={this.modeChange} className={style.modeButton}> 1st Order </Button>
+              </Menu.Item>
+              <Menu.Item key="2nd Order" style={{ height: '90px' }}>
+                <Button 
+                  id={4}
+                  onClick={this.modeChange}
+                  className={style.modeButton}
+                > 2nd Order </Button>
+              </Menu.Item>
+              <Menu.Item key="3rd Order" style={{ height: '90px' }}>
+                <Button
+                  id={5}
+                  onClick={this.modeChange}
+                  className={style.modeButton} 
+                > 3rd Order </Button>
+              </Menu.Item>
+            </SubMenu>
+
+            <SubMenu
+              key="Integral Calculation"
+              title={<span><Icon type="user" /><span>Integral Calculation(Not Finish)</span></span>}
+            >
+              <Menu.Item key="single" style={{ height: '90px' }}>
+                <Button id={6} onClick={this.modeChange} className={style.modeButton}> single </Button>
+              </Menu.Item>
+              <Menu.Item key="double" style={{ height: '90px' }}>
+                <Button 
+                  id={7}
+                  onClick={this.modeChange}
+                  className={style.modeButton}
+                > double </Button>
+              </Menu.Item>
+              <Menu.Item key="triple" style={{ height: '90px' }}>
+                <Button
+                  id={8}
+                  onClick={this.modeChange}
+                  className={style.modeButton} 
+                > triple </Button>
+              </Menu.Item>
+              <Menu.Item key="quadruple" style={{ height: '90px' }}>
+                <Button
+                  id={9}
+                  onClick={this.modeChange}
+                  className={style.modeButton} 
+                > quadruple </Button>
+              </Menu.Item>
+            </SubMenu>
+          </Menu>
+
 
         </Sider>
         <Content>
