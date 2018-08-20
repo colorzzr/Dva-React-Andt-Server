@@ -1,8 +1,10 @@
 import $ from 'jquery';
 import React, { PureComponent } from 'react';
-import { Input, Button, Layout, Icon } from 'antd';
+import { Input, Button, Layout } from 'antd';
 import style from './CalculatorComp.less';
-import NormalMenu from './NormalMenu.js';
+import GeneralMenu from './GeneralMenu.js';
+import NormalPanel from './NormalPanel.js';
+import HigherOrderPanel from './HigherOrderPanel.js';
 
 const { Content, Sider } = Layout;
 
@@ -156,7 +158,7 @@ class CalculatorComp extends PureComponent {
   }
 
   modeChange(e) {
-    console.log(e);
+    // console.log(e);
     this.setState({
       OperatingMode: e.key,
     });
@@ -179,27 +181,59 @@ class CalculatorComp extends PureComponent {
   render() {
     const { input, answer, OperatingMode } = this.state;
     let currentName = '';
-    let imagenryEnable = true;
+    let operationalPanel;
     // remember here is string
     if (OperatingMode === '0') {
       currentName = 'Normal Mode';
-      imagenryEnable = true;
+      operationalPanel =
+        (<NormalPanel
+          sendToBack={this.sendToBack}
+          opClick={this.opClick}
+          handleDelete={this.handleDelete}
+          numberClick={this.numberClick}
+          clear={this.clear.bind(this)}
+          imagenryEnable
+        />);
     } else if (OperatingMode === '1') {
       currentName = 'Imaginary Mode';
-      imagenryEnable = false;
+      operationalPanel =
+        (<NormalPanel
+          sendToBack={this.sendToBack}
+          opClick={this.opClick}
+          handleDelete={this.handleDelete}
+          numberClick={this.numberClick}
+          clear={this.clear.bind(this)}
+          imagenryEnable={false}
+        />);
     } else if (OperatingMode === '2') {
       currentName = 'Absolute Mode';
-      imagenryEnable = false;
+      operationalPanel =
+        (<NormalPanel
+          sendToBack={this.sendToBack}
+          opClick={this.opClick}
+          handleDelete={this.handleDelete}
+          numberClick={this.numberClick}
+          clear={this.clear.bind(this)}
+          imagenryEnable={false}
+        />);
+    } else if (OperatingMode === '3') {
+      currentName = 'Higher Order Mode';
+      operationalPanel =
+        (<HigherOrderPanel
+          sendToBack={this.sendToBack}
+          opClick={this.opClick}
+          handleDelete={this.handleDelete}
+          clear={this.clear.bind(this)}
+        />);
     } else {
       currentName = '?? Mode';
-      imagenryEnable = true;
     }
 
     return (
       <Layout>
         <Sider className={style.Sider} width={300}>
           <h1>选择模式</h1>
-          <NormalMenu modeChange={this.modeChange} />
+          <GeneralMenu modeChange={this.modeChange} />
 
 
         </Sider>
@@ -223,21 +257,7 @@ class CalculatorComp extends PureComponent {
           </Layout>
           <Layout className={style.inputPanel}>
             <Sider width={600} className={style.opPanel}>
-              <div >
-                <Button id="+" onClick={this.opClick} className={style.button}> + </Button>
-                <Button id="-" onClick={this.opClick} className={style.button}> - </Button>
-                <Button id="*" onClick={this.opClick} className={style.button}> * </Button>
-                <Button id="/" onClick={this.opClick} className={style.button}> / </Button>
-                <Button id="(" onClick={this.opClick} className={style.button}> ( </Button>
-                <Button id=")" onClick={this.opClick} className={style.button}> ) </Button>
-                <Button id="=" onClick={this.sendToBack} className={style.button}> = </Button>
-                <Button id="<" onClick={this.handleDelete} className={style.button}> <Icon type="left-square-o" /> </Button>
-                <Button id="^" onClick={this.opClick} className={style.button}> ^ </Button>
-                <Button id="exp(" onClick={this.opClick} className={style.button}> exp </Button>
-                <Button id="i" onClick={this.numberClick} disabled={imagenryEnable} className={style.button}> i </Button>
-                <Button id="clear" onClick={this.clear.bind(this)} className={style.button}> clc </Button>
-                <br />
-              </div>
+              {operationalPanel}
             </Sider>
 
             <Content>

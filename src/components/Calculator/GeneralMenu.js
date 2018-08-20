@@ -1,11 +1,11 @@
 import React, { PureComponent } from 'react';
 import { Menu } from 'antd';
-import style from './NormalMenu.less';
+import style from './GeneralMenu.less';
 
 const SubMenu = Menu.SubMenu;
 
 
-class NormalMenu extends PureComponent {
+class GeneralMenu extends PureComponent {
   render() {
     const { modeChange } = this.props;
     return (
@@ -64,4 +64,4 @@ class NormalMenu extends PureComponent {
   }
 }
 
-export default NormalMenu;
+export default GeneralMenu;
