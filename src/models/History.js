@@ -48,17 +48,17 @@ export default {
         },
       };
       const dateQ = new Parse.Query(returnPack);
-      let frequenceData = yield dateQ.aggregate(pipeline);
-      
+      const frequenceData = yield dateQ.aggregate(pipeline);
 
-      frequenceData.push({count:3, date:"2018-July-9"});
+
+      frequenceData.push({ count: 3, date: '2018-July-9' });
       console.log(frequenceData);
 
       yield put({
         type: 'save',
         payload: { frequenceData },
       });
-    }
+    },
   },
 
   reducers: {

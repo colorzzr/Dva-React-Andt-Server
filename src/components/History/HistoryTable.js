@@ -3,17 +3,6 @@ import { connect } from 'dva';
 import { Table, Button } from 'antd';
 import { Chart, Axis, Tooltip, Geom } from 'bizcharts';
 
-const data = [
-          { year: '1991', value: 3 },
-          { year: '1992', value: 4 },
-          { year: '1993', value: 3.5 },
-          { year: '1994', value: 5 },
-          { year: '1995', value: 4.9 },
-          { year: '1996', value: 6 },
-          { year: '1997', value: 7 },
-          { year: '1998', value: 9 },
-          { year: '1999', value: 13 },
-];
 const cols = {
   count: { min: 0 },
   date: {},
@@ -96,7 +85,7 @@ class HistoryTable extends PureComponent {
 
   test() {
     console.log(this.state);
-    const { dispatch, historyDatas } = this.props;
+    const { historyDatas } = this.props;
 
     console.log(historyDatas);
   }
@@ -126,7 +115,7 @@ class HistoryTable extends PureComponent {
           pagination={paginationProps}
           onChange={this.handleChange.bind(this)}
         />
-        <h1 style={{ align: 'center'}}> 你每天的测试次数 </h1>
+        <h1 style={{ align: 'center' }}> 你每天的测试次数 </h1>
         <Chart height={400} data={frequenceData} scale={cols} forceFit>
           <Axis name="date" />
           <Axis name="count" />
