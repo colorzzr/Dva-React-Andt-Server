@@ -115,8 +115,8 @@ class CalculatorComp extends PureComponent {
     };
 
     // sending the request 47.96.95.207:8888
-    // $.post('http://18.222.148.18:8888/calProcess', {
-    $.post('http://localhost:8888/calProcess', {
+    $.post('http://18.222.148.18:8888/calProcess', {
+    // $.post('http://localhost:8888/calProcess', {
       first: JSON.stringify(obj),
     },
         (data) => {
@@ -128,16 +128,6 @@ class CalculatorComp extends PureComponent {
         // if no error show result
           if (sendBackData.ErrorMsg === 'Good') {
             const answer = sendBackData.Answer;
-
-            // forming different answer
-            // if (OperatingMode === '0') {
-            //   answer = sendBackData.Real;
-            // } else if (OperatingMode === '1') {
-            //   answer = `${sendBackData.Real} + ${sendBackData.Imaginary}i`;
-            // } else {
-            //   answer = `模长:${sendBackData.Real} + 角度:${sendBackData.Imaginary}`;
-            // }
-
             this.setState({
               answer,
             });
