@@ -70,12 +70,13 @@ export default {
     },
     saveData(state, { payload }) {
       const historyData = payload.map((v) => {
-        const real = v.get('real');
-        const imaginary = v.get('imaginary');
+        const answerStr = v.get('answer');
         const errorMsg = v.get('errorMsg');
         const createdAt = new Date(v.get('createdAt'));
         const date = v.get('date');
         const operationModeIndex = v.get('operationMode');
+
+        // sort mode
         let operationMode;
         if (operationModeIndex === 0) {
           operationMode = 'Normal Mode';
@@ -88,8 +89,7 @@ export default {
         const key = createdAt.getTime();
 
         return {
-          real,
-          imaginary,
+          answerStr,
           errorMsg,
           createdAt: date,
           operationMode,

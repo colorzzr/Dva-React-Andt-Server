@@ -9,13 +9,9 @@ const cols = {
 };
 
 const columns = [{
-  title: 'Real',
-  dataIndex: 'real',
-  key: 'real',
-}, {
-  title: 'Imaginary',
-  dataIndex: 'imaginary',
-  key: 'imaginary',
+  title: 'Answer',
+  dataIndex: 'answerStr',
+  key: 'answerStr',
 }, {
   title: 'Error Massage',
   dataIndex: 'errorMsg',
