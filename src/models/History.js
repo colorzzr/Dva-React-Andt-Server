@@ -82,8 +82,12 @@ export default {
           operationMode = 'Normal Mode';
         } else if (operationModeIndex === 1) {
           operationMode = 'Imaginery Mode';
-        } else {
+        } else if (operationModeIndex === 2) {
           operationMode = 'Absolute Mode';
+        } else if (operationModeIndex === 3) {
+          operationMode = 'Higher Order Mode';
+        } else {
+          operationMode = 'Single Integraal Mode';
         }
         // using create at to generate unique keys
         const key = createdAt.getTime();

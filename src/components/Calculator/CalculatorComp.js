@@ -5,8 +5,9 @@ import style from './CalculatorComp.less';
 import GeneralMenu from './GeneralMenu.js';
 import NormalPanel from './NormalPanel.js';
 import HigherOrderPanel from './HigherOrderPanel.js';
+import SingleInterPanel from './singleInterPanel.js';
 
-const { Content, Sider } = Layout;
+const { Content, Sider, Header } = Layout;
 
 function objDeepCopy(source) {
   // check it is the array or object
@@ -31,6 +32,8 @@ class CalculatorComp extends PureComponent {
     this.sendToBack = this.sendToBack.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
     this.modeChange = this.modeChange.bind(this);
+    this.switchInputWindow = this.switchInputWindow.bind(this);
+    this.finishInputIL = this.finishInputIL.bind(this);
 
     this.state = {
       input: '',
@@ -38,49 +41,88 @@ class CalculatorComp extends PureComponent {
       inputStr: [],
       OperatingMode: '0',
       answer: '',
+
+      // here is the state of intergral change later
+      /** ************************************
+       * 0 is the normal input window       *
+       * 1 is the upper limit input window  *
+       * 2 is the lower limit input window  *
+       ************************************* */
+      inputPos: 0,
+      upperBound: '',
+      lowerBound: '',
     };
   }
 
   // deal with the delete button
   handleDelete() {
-    let { input, currentNumber } = this.state;
-    const { inputStr } = this.state;
-    const tempStr = objDeepCopy(inputStr);
-
-    // remove the last item in array if lenght > 0
-    if (currentNumber.length !== 0) {
-      currentNumber = currentNumber.substring(0, currentNumber.length - 1);
-      input = input.substring(0, input.length - 1);
-    } else if (tempStr.length > 0) {
-      // remove the last item in array
-      const lastItem = tempStr.pop();
-      if (lastItem === 'exp(') {
-        input = input.substring(0, input.length - 4);
-      } else {
+    const { inputPos } = this.state;
+    if (inputPos === 0) {
+      let { input, currentNumber } = this.state;
+      const { inputStr } = this.state;
+      const tempStr = objDeepCopy(inputStr);
+      // remove the last item in array if lenght > 0
+      if (currentNumber.length !== 0) {
+        currentNumber = currentNumber.substring(0, currentNumber.length - 1);
         input = input.substring(0, input.length - 1);
+      } else if (tempStr.length > 0) {
+        // remove the last item in array
+        const lastItem = tempStr.pop();
+        if (lastItem === 'exp(') {
+          input = input.substring(0, input.length - 4);
+        } else {
+          input = input.substring(0, input.length - 1);
+        }
       }
+
+    // store back to this.state
+      this.setState({
+        input,
+        currentNumber,
+        inputStr: tempStr,
+      });
+    } else if (inputPos === 1) {
+      let { upperBound } = this.state;
+      if (upperBound.length !== 0) {
+        upperBound = upperBound.substring(0, upperBound.length - 1);
+      }
+      this.setState({
+        upperBound,
+      });
+    } else {
+      let { lowerBound } = this.state;
+      if (lowerBound.length !== 0) {
+        lowerBound = lowerBound.substring(0, lowerBound.length - 1);
+      }
+      this.setState({
+        lowerBound,
+      });
     }
-
-
-  // store back to this.state
-    this.setState({
-      input,
-      currentNumber,
-      inputStr: tempStr,
-    });
   }
 
   numberClick(e) {
-  // console.log(e.target.id);
-    let { input, currentNumber } = this.state;
+    let { input, currentNumber} = this.state;
+    const { inputPos } = this.state;
     // let tempStr = objDeepCopy(inputStr);
     input += e.target.id;
     currentNumber += e.target.id;
 
-    this.setState({
-      input,
-      currentNumber,
-    });
+    if (inputPos === 0) {
+      this.setState({
+        input,
+        currentNumber,
+      });
+    } else if (inputPos === 1) {
+      this.setState({
+        upperBound: currentNumber,
+        currentNumber,
+      });
+    } else {
+      this.setState({
+        lowerBound: currentNumber,
+        currentNumber,
+      });
+    }
   }
 
   opClick(e) {
@@ -105,18 +147,24 @@ class CalculatorComp extends PureComponent {
   }
 
   sendToBack() {
-    const { inputStr, OperatingMode, currentNumber } = this.state;
+    const { inputStr, OperatingMode, currentNumber, input } = this.state;
+    const { upperBound, lowerBound } = this.state;
     // push the current one then clear
     inputStr.push(currentNumber);
 
     const obj = {
       InputOp: inputStr,
       OperatingMode: parseInt(OperatingMode, 0),
+      EquationText: input,
+      extra: {
+        upperBound,
+        lowerBound,
+      },
     };
 
     // sending the request 47.96.95.207:8888
-    $.post('http://18.222.148.18:8888/calProcess', {
-    // $.post('http://localhost:8888/calProcess', {
+    // $.post('http://18.222.148.18:8888/calProcess', {
+    $.post('http://localhost:8888/calProcess', {
       first: JSON.stringify(obj),
     },
         (data) => {
@@ -144,14 +192,22 @@ class CalculatorComp extends PureComponent {
       input: '',
       currentNumber: '',
       inputStr: [],
+      upperBound: '',
+      lowerBound: '',
     });
   }
 
   modeChange(e) {
     // console.log(e);
     this.setState({
+      input: '',
+      currentNumber: '',
+      inputStr: [],
       OperatingMode: e.key,
+      answer: '',
     });
+
+    // AND reset aall
   }
 
   clear() {
@@ -159,19 +215,41 @@ class CalculatorComp extends PureComponent {
       input: '',
       currentNumber: '',
       inputStr: [],
-      OperatingMode: 0,
       answer: '',
+      inputPos: 0,
+      upperBound: '',
+      lowerBound: '',
     });
   }
-  // <Button onClick={this.showState.bind(this)}> state </Button>
-  // showState(){
-  //   console.log(this.state);
-  // }
+
+  // setting the upper case or lower case
+  switchInputWindow(e) {
+    console.log(e.target.id);
+    if (e.target.id === 'Upper') {
+      this.setState({
+        inputPos: 1,
+        currentNumber: '',
+      });
+    } else {
+      this.setState({
+        inputPos: 2,
+        currentNumber: '',
+      });
+    }
+  }
+
+  // click ok when finish the limit input
+  finishInputIL() {
+    this.setState({
+      inputPos: 0,
+    });
+  }
 
   render() {
-    const { input, answer, OperatingMode } = this.state;
+    const { input, answer, OperatingMode, upperBound, lowerBound } = this.state;
     let currentName = '';
     let operationalPanel;
+    let inoutText;
     // remember here is string
     if (OperatingMode === '0') {
       currentName = 'Normal Mode';
@@ -216,12 +294,84 @@ class CalculatorComp extends PureComponent {
           numberClick={this.numberClick}
           clear={this.clear.bind(this)}
         />);
+    } else if (OperatingMode === '4') {
+      currentName = 'Single Intergral Mode';
+      operationalPanel =
+        (<SingleInterPanel
+          sendToBack={this.sendToBack}
+          opClick={this.opClick}
+          handleDelete={this.handleDelete}
+          numberClick={this.numberClick}
+          clear={this.clear.bind(this)}
+        />);
     } else {
       currentName = '?? Mode';
     }
 
+    // switch the input && output text shown based on mode
+    if (OperatingMode === '0' || OperatingMode === '1' || OperatingMode === '2' || OperatingMode === '3') {
+      inoutText = (
+        <div>
+          <Layout className={style.outputPanel} style={{ background: '#fff' }}>
+            <Header style={{ background: '#cde' }}><h1>Operation</h1></Header>
+            <Content>
+              <Input className={style.outputText} value={input} placeholder="Operation" />
+            </Content>
+          </Layout>
+
+          <Layout className={style.outputPanel} style={{ background: '#fff' }}>
+            <Header style={{ background: '#cde' }}><h1>Answer</h1></Header>
+            <Content>
+              <Input value={answer} className={style.outputText} placeholder="Answer" />
+            </Content>
+          </Layout>
+        </div>);
+    } else {
+      inoutText = (
+        <div>
+          <Layout className={style.outputPanel} style={{ background: '#fff' }}>
+            <Header style={{ background: '#cde' }}><h1>Operation</h1></Header>
+            <Layout style={{ background: '#fff' }}>
+              <Sider width={200}>
+                <div style={{ background: '#ccc' }}>
+                  <ul className={style.IntergralInout}>
+                    <li>
+                      <Button id="Upper" onClick={this.switchInputWindow}> Upper </Button>
+                      <Button id="UpperOK" onClick={this.finishInputIL}> OK </Button>
+                    </li>
+                    <li>
+                      <Input value={upperBound} placeholder="UpperInput" />
+                    </li>
+
+                    <li>
+                      <Button id="Lower" onClick={this.switchInputWindow}> Lower </Button>
+                      <Button id="LowerOK" onClick={this.finishInputIL}> OK </Button>
+                    </li>
+                    <li>
+                      <Input value={lowerBound} placeholder="LowerInput" />
+                    </li>
+                  </ul>
+
+
+                </div>
+              </Sider>
+              <Content>
+                <Input className={style.outputText} value={input} placeholder="Operation" />
+              </Content>
+            </Layout>
+          </Layout>
+
+          <Layout className={style.outputPanel} style={{ background: '#fff' }}>
+            <Header style={{ background: '#cde' }}><h1>Answer</h1></Header>
+            <Content>
+              <Input value={answer} className={style.outputText} placeholder="Answer" />
+            </Content>
+          </Layout>
+        </div>);
+    }
+
     return (
-      <Layout>
+      <Layout style={{ background: '#fff' }}>
         <Sider className={style.Sider} width={300}>
           <h1>选择模式</h1>
           <GeneralMenu modeChange={this.modeChange} />
@@ -233,20 +383,8 @@ class CalculatorComp extends PureComponent {
             <h1>Current Mode</h1>
             <h2>{currentName}</h2>
           </div>
-          <Layout className={style.outputPanel}>
-            <Content>
-              <h1>Operation</h1>
-              <Input className={style.outputText} value={input} placeholder="Operation" />
-            </Content>
-          </Layout>
-
-          <Layout className={style.outputPanel}>
-            <Content>
-              <h1>Answer</h1>
-              <Input value={answer} className={style.outputText} placeholder="Answer" />
-            </Content>
-          </Layout>
-          <Layout className={style.inputPanel}>
+          {inoutText}
+          <Layout className={style.inputPanel} style={{ background: '#fff' }}>
             <Sider width={600} className={style.opPanel}>
               {operationalPanel}
             </Sider>
