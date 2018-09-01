@@ -1,17 +1,38 @@
 import React, { PureComponent } from 'react';
+import { connect } from 'dva';
 import { Form, Icon, Input, Button, Checkbox } from 'antd';
 import style from './Login.less';
 
 const FormItem = Form.Item;
 
 class NormalLoginForm extends PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.state = {};
+  }
+
   handleSubmit = (e) => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        console.log('Received values of form: ', values);
+        const { dispatch } = this.props;
+        dispatch({
+          type: 'login/login',
+          payload: {
+            ...values,
+          },
+        });
       }
     });
+  }
+
+  register() {
+    const { dispatch } = this.props;
+    dispatch({
+      type: 'login/register',
+    });
+    // console.log("Ttt");
   }
 
   render() {
@@ -48,6 +69,7 @@ class NormalLoginForm extends PureComponent {
             Or <a href="">register now!</a>
           </FormItem>
         </Form>
+        <Button onClick={this.register.bind(this)}> register-Test </Button>
       </div>
     );
   }
@@ -55,5 +77,5 @@ class NormalLoginForm extends PureComponent {
 
 const WrappedNormalLoginForm = Form.create()(NormalLoginForm);
 
-export default WrappedNormalLoginForm;
+export default connect()(WrappedNormalLoginForm);
 
