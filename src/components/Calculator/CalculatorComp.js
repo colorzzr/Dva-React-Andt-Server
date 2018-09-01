@@ -29,7 +29,7 @@ class CalculatorComp extends PureComponent {
 
     const { login } = this.props;
     const { status } = login;
-    if (status) {
+    if (!status) {
       const { dispatch } = this.props;
       dispatch({
         type: 'login/needLogin',
