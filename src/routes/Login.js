@@ -1,12 +1,12 @@
 import React from 'react';
-import NormalLoginForm from '../components/Login/NormalLoginForm';
+import WrappedNormalLoginForm from '../components/Login/NormalLoginForm';
 
-function Calculator() {
+function Login() {
   return (
-    <div style={{ width: 300 }}>
-      <NormalLoginForm />
+    <div>
+      <WrappedNormalLoginForm />
     </div>
   );
 }
 
-export default Calculator;
+export default Login;

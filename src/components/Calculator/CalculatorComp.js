@@ -1,6 +1,8 @@
 import $ from 'jquery';
 import React, { PureComponent } from 'react';
 import { Input, Button, Layout } from 'antd';
+import { connect } from 'dva';
+import { routerRedux } from 'dva/router';
 import style from './CalculatorComp.less';
 import GeneralMenu from './GeneralMenu.js';
 import NormalPanel from './NormalPanel.js';
@@ -25,6 +27,15 @@ function objDeepCopy(source) {
 class CalculatorComp extends PureComponent {
   constructor(props) {
     super(props);
+
+    // check login
+    if (true) {
+      const { dispatch } = this.props;
+      dispatch(routerRedux.push({
+        pathname: '/Login',
+      }));
+    }
+
 
     // this.handleInputChange = this.handleInputChange.bind(this);
     this.opClick = this.opClick.bind(this);
@@ -411,4 +422,4 @@ class CalculatorComp extends PureComponent {
   }
 }
 
-export default CalculatorComp;
+export default connect()(CalculatorComp);

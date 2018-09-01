@@ -29,6 +29,10 @@ app.use(createLoading());
 
 // 3. Model
 // Moved to router.js
+app.model(require('./models/CounterMod.js'));
+app.model(require('./models/History.js'));
+app.model(require('./models/users.js'));
+app.model(require('./models/login.js'));
 
 // 4. Router
 app.router(require('./router'));

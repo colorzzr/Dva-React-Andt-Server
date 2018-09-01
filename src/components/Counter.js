@@ -54,6 +54,11 @@ const Counter = ({ dispatch, counterMod }) => {
       type: 'counterMod/minus',
     });
   }
+  function test() {
+    dispatch({
+      type: 'login/login',
+    });
+  }
 
   return (
     <div>
@@ -64,6 +69,7 @@ const Counter = ({ dispatch, counterMod }) => {
           <Button onClick={minus}> minus ! </Button>
         </Col>
       </Row>
+      <Button onClick={test}> test ! </Button>
     </div>
   );
 };
