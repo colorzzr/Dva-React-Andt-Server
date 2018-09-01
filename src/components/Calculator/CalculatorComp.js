@@ -29,7 +29,7 @@ class CalculatorComp extends PureComponent {
 
     const { login } = this.props;
     const { status } = login;
-    if (!status) {
+    if (status) {
       const { dispatch } = this.props;
       dispatch({
         type: 'login/needLogin',
@@ -172,9 +172,9 @@ class CalculatorComp extends PureComponent {
       },
     };
 
-    // sending the request 
-    $.post('http://18.222.148.18:8888/calProcess', {
-    // $.post('http://localhost:8888/calProcess', {
+    // sending the request
+    // $.post('http://18.222.148.18:8888/calProcess', {
+    $.post('http://localhost:8888/calProcess', {
       first: JSON.stringify(obj),
     },
         (data) => {
