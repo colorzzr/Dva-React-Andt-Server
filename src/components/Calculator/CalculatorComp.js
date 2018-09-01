@@ -163,8 +163,8 @@ class CalculatorComp extends PureComponent {
     };
 
     // sending the request 47.96.95.207:8888
-    $.post('http://18.222.148.18:8888/calProcess', {
-    // $.post('http://localhost:8888/calProcess', {
+    // $.post('http://18.222.148.18:8888/calProcess', {
+    $.post('http://localhost:8888/calProcess', {
       first: JSON.stringify(obj),
     },
         (data) => {

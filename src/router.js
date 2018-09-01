@@ -58,6 +58,14 @@ function RouterConfig({ history, app }) {
           cb(null, require('./routes/History'));
         });
       },
+    }, {
+      path: '/Login',
+      name: 'Login',
+      getComponent(nextState, cb) {
+        require.ensure([], (require) => {
+          cb(null, require('./routes/Login'));
+        });
+      },
     },
   ];
 
