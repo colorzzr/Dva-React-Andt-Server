@@ -27,14 +27,14 @@ class CalculatorComp extends PureComponent {
   constructor(props) {
     super(props);
 
-    const { login } = this.props;
-    const { status } = login;
-    if (status) {
-      const { dispatch } = this.props;
-      dispatch({
-        type: 'login/needLogin',
-      });
-    }
+    // const { login } = this.props;
+    // const { status } = login;
+    // if (status) {
+    //   const { dispatch } = this.props;
+    //   dispatch({
+    //     type: 'login/needLogin',
+    //   });
+    // }
 
     // this.handleInputChange = this.handleInputChange.bind(this);
     this.opClick = this.opClick.bind(this);
@@ -173,8 +173,8 @@ class CalculatorComp extends PureComponent {
     };
 
     // sending the request
-    // $.post('http://18.222.148.18:8888/calProcess', {
-    $.post('http://localhost:8888/calProcess', {
+    $.post('http://18.222.148.18:8888/calProcess', {
+    // $.post('http://localhost:8888/calProcess', {
       first: JSON.stringify(obj),
     },
         (data) => {
@@ -421,6 +421,4 @@ class CalculatorComp extends PureComponent {
   }
 }
 
-export default connect(({ login }) => ({
-  login,
-}))(CalculatorComp);
+export default connect()(CalculatorComp);
