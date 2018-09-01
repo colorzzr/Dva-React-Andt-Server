@@ -82,6 +82,7 @@ import Users from './routes/Users';
 import Calculator from './routes/Calculator';
 import History from './routes/History';
 import Login from './routes/Login';
+import RegisterPage from './routes/Register';
 
 function RouterConfig({ history }) {
   return (
@@ -93,6 +94,7 @@ function RouterConfig({ history }) {
         <Route path="/Calculator" exact component={Calculator} />
         <Route path="/History" exact component={History} />
         <Route path="/Login" exact component={Login} />
+        <Route path="/Register" exact component={RegisterPage} />
 
       </Switch>
     </Router>

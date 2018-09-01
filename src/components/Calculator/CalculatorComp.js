@@ -27,6 +27,14 @@ class CalculatorComp extends PureComponent {
   constructor(props) {
     super(props);
 
+    const { login } = this.props;
+    const { status } = login;
+    if (!status) {
+      const { dispatch } = this.props;
+      dispatch({
+        type: 'login/needLogin',
+      });
+    }
 
     // this.handleInputChange = this.handleInputChange.bind(this);
     this.opClick = this.opClick.bind(this);
@@ -413,4 +421,6 @@ class CalculatorComp extends PureComponent {
   }
 }
 
-export default connect()(CalculatorComp);
+export default connect(({ login }) => ({
+  login,
+}))(CalculatorComp);

@@ -30,6 +30,17 @@ const columns = [{
 class HistoryTable extends PureComponent {
   constructor(props) {
     super(props);
+
+    // check whether loging
+    const { login } = this.props;
+    const { status } = login;
+    if (!status) {
+      const { dispatch } = this.props;
+      dispatch({
+        type: 'login/needLogin',
+      });
+    }
+
     this.state = {
       page: 1,
       pageSize: 10,
@@ -124,6 +135,7 @@ class HistoryTable extends PureComponent {
   }
 }
 
-export default connect(({ historyDatas }) => ({
+export default connect(({ historyDatas, login }) => ({
   historyDatas,
+  login,
 }))(HistoryTable);

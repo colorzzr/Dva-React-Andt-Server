@@ -27,14 +27,6 @@ class NormalLoginForm extends PureComponent {
     });
   }
 
-  register() {
-    const { dispatch } = this.props;
-    dispatch({
-      type: 'login/register',
-    });
-    // console.log("Ttt");
-  }
-
   render() {
     const { getFieldDecorator } = this.props.form;
     return (
@@ -62,14 +54,13 @@ class NormalLoginForm extends PureComponent {
             })(
               <Checkbox>Remember me</Checkbox>,
             )}
-            <a className="login-form-forgot" href="">Forgot password</a>
-            <Button type="primary" htmlType="submit" className="login-form-button">
+            <a href="">Forgot password</a>
+            <Button type="primary" htmlType="submit">
               Log in
             </Button>
             Or <a href="">register now!</a>
           </FormItem>
         </Form>
-        <Button onClick={this.register.bind(this)}> register-Test </Button>
       </div>
     );
   }
