@@ -54,11 +54,11 @@ class NormalLoginForm extends PureComponent {
             })(
               <Checkbox>Remember me</Checkbox>,
             )}
-            <a href="">Forgot password</a>
+            <a href="/">Forgot password</a>
             <Button type="primary" htmlType="submit">
               Log in
             </Button>
-            Or <a href="">register now!</a>
+            Or <a href="/#/Register">register now!</a>
           </FormItem>
         </Form>
       </div>
