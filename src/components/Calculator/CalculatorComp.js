@@ -7,6 +7,7 @@ import GeneralMenu from './GeneralMenu.js';
 import NormalPanel from './NormalPanel.js';
 import HigherOrderPanel from './HigherOrderPanel.js';
 import SingleInterPanel from './singleInterPanel.js';
+import DoubleInterPanel from './doubleInterPanel.js';
 
 const { Content, Sider, Header } = Layout;
 
@@ -27,14 +28,14 @@ class CalculatorComp extends PureComponent {
   constructor(props) {
     super(props);
 
-    const { login } = this.props;
-    const { status } = login;
-    if (!status) {
-      const { dispatch } = this.props;
-      dispatch({
-        type: 'login/needLogin',
-      });
-    }
+    // const { login } = this.props;
+    // const { status } = login;
+    // if (!status) {
+    //   const { dispatch } = this.props;
+    //   dispatch({
+    //     type: 'login/needLogin',
+    //   });
+    // }
 
     // this.handleInputChange = this.handleInputChange.bind(this);
     this.opClick = this.opClick.bind(this);
@@ -46,6 +47,7 @@ class CalculatorComp extends PureComponent {
     this.finishInputIL = this.finishInputIL.bind(this);
 
     this.state = {
+      // input is the equation text
       input: '',
       currentNumber: '',
       inputStr: [],
@@ -59,8 +61,10 @@ class CalculatorComp extends PureComponent {
        * 2 is the lower limit input window  *
        ************************************* */
       inputPos: 0,
-      upperBound: '',
-      lowerBound: '',
+      XupperBound: '',
+      XlowerBound: '',
+      YupperBound: '',
+      YlowerBound: '',
     };
   }
 
@@ -92,20 +96,20 @@ class CalculatorComp extends PureComponent {
         inputStr: tempStr,
       });
     } else if (inputPos === 1) {
-      let { upperBound } = this.state;
-      if (upperBound.length !== 0) {
-        upperBound = upperBound.substring(0, upperBound.length - 1);
+      let { XupperBound } = this.state;
+      if (XupperBound.length !== 0) {
+        XupperBound = XupperBound.substring(0, XupperBound.length - 1);
       }
       this.setState({
-        upperBound,
+        XupperBound,
       });
     } else {
-      let { lowerBound } = this.state;
-      if (lowerBound.length !== 0) {
-        lowerBound = lowerBound.substring(0, lowerBound.length - 1);
+      let { XlowerBound } = this.state;
+      if (XlowerBound.length !== 0) {
+        XlowerBound = XlowerBound.substring(0, XlowerBound.length - 1);
       }
       this.setState({
-        lowerBound,
+        XlowerBound,
       });
     }
   }
@@ -124,12 +128,27 @@ class CalculatorComp extends PureComponent {
       });
     } else if (inputPos === 1) {
       this.setState({
-        upperBound: currentNumber,
+        XupperBound: currentNumber,
+        currentNumber,
+      });
+    } else if (inputPos === 2) {
+      this.setState({
+        XlowerBound: currentNumber,
+        currentNumber,
+      });
+    } else if (inputPos === 3) {
+      this.setState({
+        YupperBound: currentNumber,
+        currentNumber,
+      });
+    } else if (inputPos === 4) {
+      this.setState({
+        YlowerBound: currentNumber,
         currentNumber,
       });
     } else {
       this.setState({
-        lowerBound: currentNumber,
+        input,
         currentNumber,
       });
     }
@@ -158,7 +177,7 @@ class CalculatorComp extends PureComponent {
 
   sendToBack() {
     const { inputStr, OperatingMode, currentNumber, input } = this.state;
-    const { upperBound, lowerBound } = this.state;
+    const { XupperBound, XlowerBound, YupperBound, YlowerBound } = this.state;
     // push the current one then clear
     inputStr.push(currentNumber);
 
@@ -167,14 +186,16 @@ class CalculatorComp extends PureComponent {
       OperatingMode: parseInt(OperatingMode, 0),
       EquationText: input,
       extra: {
-        upperBound,
-        lowerBound,
+        XupperBound,
+        XlowerBound,
+        YupperBound,
+        YlowerBound,
       },
     };
 
     // sending the request
-    $.post('http://18.222.148.18:8888/calProcess', {
-    // $.post('http://localhost:8888/calProcess', {
+    // $.post('http://18.222.148.18:8888/calProcess', {
+    $.post('http://localhost:8888/calProcess', {
       first: JSON.stringify(obj),
     },
         (data) => {
@@ -202,8 +223,10 @@ class CalculatorComp extends PureComponent {
       input: '',
       currentNumber: '',
       inputStr: [],
-      upperBound: '',
-      lowerBound: '',
+      XupperBound: '',
+      XlowerBound: '',
+      YupperBound: '',
+      YlowerBound: '',
     });
   }
 
@@ -227,22 +250,45 @@ class CalculatorComp extends PureComponent {
       inputStr: [],
       answer: '',
       inputPos: 0,
-      upperBound: '',
-      lowerBound: '',
+      XupperBound: '',
+      XlowerBound: '',
+      YupperBound: '',
+      YlowerBound: '',
     });
   }
 
   // setting the upper case or lower case
   switchInputWindow(e) {
-    console.log(e.target.id);
-    if (e.target.id === 'Upper') {
+    // push for the y
+    // const {currentNumber, inputStr} = this.state;
+    // console.log(currentNumber)
+    // if(currentNumber !== ''){
+    //   inputStr.push(currentNumber);
+    // }
+
+    if (e.target.id === 'XUpper') {
       this.setState({
         inputPos: 1,
         currentNumber: '',
       });
-    } else {
+    } else if (e.target.id === 'XLower') {
       this.setState({
         inputPos: 2,
+        currentNumber: '',
+      });
+    } else if (e.target.id === 'YUpper') {
+      this.setState({
+        inputPos: 3,
+        currentNumber: '',
+      });
+    } else if (e.target.id === 'YLower') {
+      this.setState({
+        inputPos: 4,
+        currentNumber: '',
+      });
+    } else {
+      this.setState({
+        inputPos: 0,
         currentNumber: '',
       });
     }
@@ -252,11 +298,16 @@ class CalculatorComp extends PureComponent {
   finishInputIL() {
     this.setState({
       inputPos: 0,
+      currentNumber: '',
     });
   }
 
+  test() {
+    console.log(this.state);
+  }
+
   render() {
-    const { input, answer, OperatingMode, upperBound, lowerBound } = this.state;
+    const { input, answer, OperatingMode, XupperBound, XlowerBound } = this.state;
     let currentName = '';
     let operationalPanel;
     let inoutText;
@@ -314,6 +365,16 @@ class CalculatorComp extends PureComponent {
           numberClick={this.numberClick}
           clear={this.clear.bind(this)}
         />);
+    } else if (OperatingMode === '5') {
+      currentName = 'Double Intergral Mode';
+      operationalPanel =
+        (<DoubleInterPanel
+          sendToBack={this.sendToBack}
+          opClick={this.opClick}
+          handleDelete={this.handleDelete}
+          numberClick={this.numberClick}
+          clear={this.clear.bind(this)}
+        />);
     } else {
       currentName = '?? Mode';
     }
@@ -337,6 +398,69 @@ class CalculatorComp extends PureComponent {
           </Layout>
         </div>);
     } else {
+      let boundChoose;
+
+      if (OperatingMode === '4') {
+        boundChoose = (
+          <ul className={style.IntergralInout}>
+            <li>
+              <Button id="XUpper" onClick={this.switchInputWindow}> Upper </Button>
+              <Button id="UpperOK" onClick={this.finishInputIL}> OK </Button>
+            </li>
+            <li>
+              <Input value={XupperBound} placeholder="UpperInput" />
+            </li>
+
+            <li>
+              <Button id="XLower" onClick={this.switchInputWindow}> Lower </Button>
+              <Button id="LowerOK" onClick={this.finishInputIL}> OK </Button>
+            </li>
+            <li>
+              <Input value={XlowerBound} placeholder="LowerInput" />
+            </li>
+          </ul>
+        );
+      } else if (OperatingMode === '5') {
+        const { YupperBound, YlowerBound } = this.state;
+        boundChoose = (
+          <ul className={style.DoubleIntergralInout}>
+            <li>
+              <Button id="XUpper" onClick={this.switchInputWindow}> X Upper </Button>
+              <Button id="UpperOK" onClick={this.finishInputIL}> OK </Button>
+            </li>
+            <li>
+              <Input value={XupperBound} placeholder="UpperInput" />
+            </li>
+
+            <li>
+              <Button id="XLower" onClick={this.switchInputWindow}> X Lower </Button>
+              <Button id="UpperOK" onClick={this.finishInputIL}> OK </Button>
+            </li>
+            <li>
+              <Input value={XlowerBound} placeholder="UpperInput" />
+            </li>
+
+            <li>
+              <Button id="YUpper" onClick={this.switchInputWindow}> Y Upper </Button>
+              <Button id="LowerOK" onClick={this.finishInputIL}> OK </Button>
+            </li>
+            <li>
+              <Input value={YupperBound} placeholder="YUpperInput" />
+            </li>
+
+            <li>
+              <Button id="YLower" onClick={this.switchInputWindow}> Y Lower </Button>
+              <Button id="LowerOK" onClick={this.finishInputIL}> OK </Button>
+            </li>
+            <li>
+              <Input value={YlowerBound} placeholder="YLowerInput" />
+            </li>
+          </ul>
+        );
+      } else {
+        <h1>nothing</h1>
+      }
+
       inoutText = (
         <div>
           <Layout className={style.outputPanel} style={{ background: '#fff' }}>
@@ -344,25 +468,7 @@ class CalculatorComp extends PureComponent {
             <Layout style={{ background: '#fff' }}>
               <Sider width={200}>
                 <div style={{ background: '#ccc' }}>
-                  <ul className={style.IntergralInout}>
-                    <li>
-                      <Button id="Upper" onClick={this.switchInputWindow}> Upper </Button>
-                      <Button id="UpperOK" onClick={this.finishInputIL}> OK </Button>
-                    </li>
-                    <li>
-                      <Input value={upperBound} placeholder="UpperInput" />
-                    </li>
-
-                    <li>
-                      <Button id="Lower" onClick={this.switchInputWindow}> Lower </Button>
-                      <Button id="LowerOK" onClick={this.finishInputIL}> OK </Button>
-                    </li>
-                    <li>
-                      <Input value={lowerBound} placeholder="LowerInput" />
-                    </li>
-                  </ul>
-
-
+                  {boundChoose}
                 </div>
               </Sider>
               <Content>
@@ -385,7 +491,7 @@ class CalculatorComp extends PureComponent {
         <Sider className={style.Sider} width={300}>
           <h1>选择模式</h1>
           <GeneralMenu modeChange={this.modeChange} />
-
+          <Button onClick={this.test.bind(this)}> test </Button>
 
         </Sider>
         <Content>

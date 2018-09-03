@@ -11,8 +11,8 @@ const ERROR_MSG_DURATION = 3; // 3 秒
 
 Parse.initialize('Calculator', 'UpdKbelU7zvtsCCW', 'jQAr0Xqhbkw45mSW');
 // change URL to server ip not localhost
-Parse.serverURL = 'http://18.222.148.18:8080/v1';
-// Parse.serverURL = 'http://127.0.0.1:8080/v1';
+// Parse.serverURL = 'http://18.222.148.18:8080/v1';
+Parse.serverURL = 'http://127.0.0.1:8080/v1';
 
 Parse.masterKey = 'jQAr0Xqhbkw45mSW';
 
