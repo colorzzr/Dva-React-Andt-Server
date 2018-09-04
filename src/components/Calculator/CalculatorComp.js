@@ -1,13 +1,13 @@
 import $ from 'jquery';
 import React, { PureComponent } from 'react';
-import { Input, Button, Layout } from 'antd';
+import { Input, Button, Layout, Switch } from 'antd';
 import { connect } from 'dva';
 import style from './CalculatorComp.less';
 import GeneralMenu from './GeneralMenu.js';
 import NormalPanel from './NormalPanel.js';
 import HigherOrderPanel from './HigherOrderPanel.js';
 import SingleInterPanel from './singleInterPanel.js';
-import DoubleInterPanel from './doubleInterPanel.js';
+import BoundChoose from './BoundChoose.js';
 
 const { Content, Sider, Header } = Layout;
 
@@ -302,6 +302,11 @@ class CalculatorComp extends PureComponent {
     });
   }
 
+  switchDeAndInd(checked) {
+    console.log(checked);
+    console.log(this.state);
+  }
+
   test() {
     console.log(this.state);
   }
@@ -355,8 +360,22 @@ class CalculatorComp extends PureComponent {
           numberClick={this.numberClick}
           clear={this.clear.bind(this)}
         />);
-    } else if (OperatingMode === '4') {
-      currentName = 'Single Intergral Mode';
+    } else if (OperatingMode === '4' || OperatingMode === '5' || OperatingMode === '6') {
+      let enableY;
+      let enableZ;
+      if (OperatingMode === '4') {
+        currentName = 'Single Intergral Mode';
+        enableY = true;
+        enableZ = true;
+      } else if (OperatingMode === '5') {
+        currentName = 'Double Intergral Mode';
+        enableY = false;
+        enableZ = true;
+      } else {
+        currentName = 'Triple Intergral Mode';
+        enableY = false;
+        enableZ = false;
+      }
       operationalPanel =
         (<SingleInterPanel
           sendToBack={this.sendToBack}
@@ -364,16 +383,8 @@ class CalculatorComp extends PureComponent {
           handleDelete={this.handleDelete}
           numberClick={this.numberClick}
           clear={this.clear.bind(this)}
-        />);
-    } else if (OperatingMode === '5') {
-      currentName = 'Double Intergral Mode';
-      operationalPanel =
-        (<DoubleInterPanel
-          sendToBack={this.sendToBack}
-          opClick={this.opClick}
-          handleDelete={this.handleDelete}
-          numberClick={this.numberClick}
-          clear={this.clear.bind(this)}
+          enableY={enableY}
+          enableZ={enableZ}
         />);
     } else {
       currentName = '?? Mode';
@@ -401,77 +412,47 @@ class CalculatorComp extends PureComponent {
       let boundChoose;
 
       if (OperatingMode === '4') {
+        const boundArr = ['XUpper', 'XLower'];
+        const boundNumber = [XupperBound, XlowerBound];
         boundChoose = (
-          <ul className={style.IntergralInout}>
-            <li>
-              <Button id="XUpper" onClick={this.switchInputWindow}> Upper </Button>
-              <Button id="UpperOK" onClick={this.finishInputIL}> OK </Button>
-            </li>
-            <li>
-              <Input value={XupperBound} placeholder="UpperInput" />
-            </li>
-
-            <li>
-              <Button id="XLower" onClick={this.switchInputWindow}> Lower </Button>
-              <Button id="LowerOK" onClick={this.finishInputIL}> OK </Button>
-            </li>
-            <li>
-              <Input value={XlowerBound} placeholder="LowerInput" />
-            </li>
-          </ul>
+          <BoundChoose
+            boundArr={boundArr} boundNumber={boundNumber}
+            switchInputWindow={this.switchInputWindow} finishInputIL={this.finishInputIL}
+          />
         );
       } else if (OperatingMode === '5') {
         const { YupperBound, YlowerBound } = this.state;
+        const boundArr = ['XUpper', 'XLower', 'YUpper', 'YLower'];
+        const boundNumber = [XupperBound, XlowerBound, YupperBound, YlowerBound];
         boundChoose = (
-          <ul className={style.DoubleIntergralInout}>
-            <li>
-              <Button id="XUpper" onClick={this.switchInputWindow}> X Upper </Button>
-              <Button id="UpperOK" onClick={this.finishInputIL}> OK </Button>
-            </li>
-            <li>
-              <Input value={XupperBound} placeholder="UpperInput" />
-            </li>
-
-            <li>
-              <Button id="XLower" onClick={this.switchInputWindow}> X Lower </Button>
-              <Button id="UpperOK" onClick={this.finishInputIL}> OK </Button>
-            </li>
-            <li>
-              <Input value={XlowerBound} placeholder="UpperInput" />
-            </li>
-
-            <li>
-              <Button id="YUpper" onClick={this.switchInputWindow}> Y Upper </Button>
-              <Button id="LowerOK" onClick={this.finishInputIL}> OK </Button>
-            </li>
-            <li>
-              <Input value={YupperBound} placeholder="YUpperInput" />
-            </li>
-
-            <li>
-              <Button id="YLower" onClick={this.switchInputWindow}> Y Lower </Button>
-              <Button id="LowerOK" onClick={this.finishInputIL}> OK </Button>
-            </li>
-            <li>
-              <Input value={YlowerBound} placeholder="YLowerInput" />
-            </li>
-          </ul>
+          <BoundChoose
+            boundArr={boundArr} boundNumber={boundNumber}
+            switchInputWindow={this.switchInputWindow} finishInputIL={this.finishInputIL}
+          />
         );
       } else {
-        <h1>nothing</h1>
+        boundChoose = (<h1>nothing</h1>);
       }
 
       inoutText = (
         <div>
           <Layout className={style.outputPanel} style={{ background: '#fff' }}>
-            <Header style={{ background: '#cde' }}><h1>Operation</h1></Header>
+            <Header style={{ background: '#cde' }}>
+              <div>
+                <h1>Operation</h1>
+              </div>
+            </Header>
             <Layout style={{ background: '#fff' }}>
-              <Sider width={200}>
-                <div style={{ background: '#ccc' }}>
+
+              <Content>
+                <div style={{ background: 'aliceblue' }}>
+                  <Switch
+                    checkedChildren="开" unCheckedChildren="关"
+                    defaultChecked className={style.switchBtwDefAndInd}
+                    onChange={this.switchDeAndInd.bind(this)}
+                  />
                   {boundChoose}
                 </div>
-              </Sider>
-              <Content>
                 <Input className={style.outputText} value={input} placeholder="Operation" />
               </Content>
             </Layout>
