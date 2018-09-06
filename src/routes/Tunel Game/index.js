@@ -26,7 +26,7 @@ class TunelGame extends PureComponent {
     this.GenerateMap = this.GenerateMap.bind(this);
     this.printCorrectPath = this.printCorrectPath.bind(this);
 
-    this.state = { 
+    this.state = {
       bitMap: '',
     };
   }
