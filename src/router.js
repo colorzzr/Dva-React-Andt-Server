@@ -83,7 +83,7 @@ import Calculator from './routes/Calculator';
 import History from './routes/History';
 import Login from './routes/Login';
 import RegisterPage from './routes/Register';
-import TunelGame from './routes/Tunel Game/index.js';
+import TubeGame from './routes/Tunel Game/TubeGame.js';
 
 function RouterConfig({ history }) {
   return (
@@ -96,7 +96,7 @@ function RouterConfig({ history }) {
         <Route path="/History" exact component={History} />
         <Route path="/Login" exact component={Login} />
         <Route path="/Register" exact component={RegisterPage} />
-        <Route path="/TunelGame" exact component={TunelGame} />
+        <Route path="/TunelGame" exact component={TubeGame} />
 
       </Switch>
     </Router>
