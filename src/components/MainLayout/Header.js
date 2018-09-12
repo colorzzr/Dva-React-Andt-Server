@@ -25,7 +25,7 @@ function Header({ location }) {
         <Link to="/History"><Icon type="api" />History</Link>
       </Menu.Item>
       <Menu.Item key="/TunelGame">
-        <Link to="/TunelGame"><Icon type="smile" theme="twoTone" twoToneColor="#eb2f96"/>Game</Link>
+        <Link to="/TunelGame"><Icon type="smile" theme="twoTone" twoToneColor="#eb2f96" />Game</Link>
       </Menu.Item>
     </Menu>
   );
