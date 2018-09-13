@@ -78,7 +78,6 @@ import React from 'react';
 import { Router, Route, Switch } from 'dva/router';
 import IndexPage from './routes/IndexPage';
 import CounterTop from './routes/Counter';
-import Users from './routes/Users';
 import Calculator from './routes/Calculator';
 import History from './routes/History';
 import Login from './routes/Login';
@@ -93,7 +92,6 @@ function RouterConfig({ history }) {
       <Switch>
         <Route path="/" exact component={IndexPage} />
         <Route path="/counter" exact component={CounterTop} />
-        <Route path="/users" exact component={Users} />
         <Route path="/Calculator" exact component={Calculator} />
         <Route path="/History" exact component={History} />
         <Route path="/Login" exact component={Login} />

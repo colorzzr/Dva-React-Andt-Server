@@ -13,11 +13,19 @@ export default {
       const { userName, password } = payload;
       try {
         // const user = yield Parse.User.logIn(userName, password);
-        yield Parse.User.logIn(userName, password);
+        const curUser = yield Parse.User.logIn(userName, password);
         yield put(routerRedux.push('/'));
+        console.log(curUser);
         yield put({
           type: 'LoggedIn',
         });
+
+
+        // Parse.User.become("session-token-here").then(function (user) {
+        //   console.log(user);
+        // }, function (error) {
+        //   console.log(error);
+        // });
       } catch (error) {
         console.log(error);
       }
