@@ -20,6 +20,13 @@ export default {
           type: 'LoggedIn',
         });
 
+        // save user
+        yield put({
+          type: 'user/saveUser',
+          payload: {
+            userName: curUser.get('username'),
+          },
+        });
 
         // Parse.User.become("session-token-here").then(function (user) {
         //   console.log(user);

@@ -3,6 +3,7 @@ import { connect } from 'dva';
 import { Menu, Icon, Row, Col, Button } from 'antd';
 import { Link } from 'dva/router';
 import style from './Header.less';
+import UserPopWindow from '../UserPopWindow/index.js';
 
 class Header extends PureComponent {
   constructor(props) {
@@ -19,7 +20,25 @@ class Header extends PureComponent {
   }
 
   render() {
-    const { location } = this.props;
+    const { location, login } = this.props;
+    const { status } = login;
+    let loginOrUser;
+    console.log(login);
+
+    // check whether login
+    if (status === true) {
+      loginOrUser = <UserPopWindow />;
+    } else {
+      loginOrUser = (
+        <Button
+          className={style.LoginGid}
+          onClick={this.jumpToLogin.bind(this)}
+        >
+          Login
+        </Button>
+      );
+    }
+
     return (
       <div>
         <Row gutter={32} className={style.Header}>
@@ -47,12 +66,7 @@ class Header extends PureComponent {
             </Menu>
           </Col>
           <Col span={2} >
-            <Button
-              className={style.LoginGid}
-              onClick={this.jumpToLogin.bind(this)}
-            >
-              Login
-            </Button>
+            {loginOrUser}
           </Col>
         </Row>
       </div>
