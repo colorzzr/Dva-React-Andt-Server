@@ -14,6 +14,9 @@ class ReversiGame extends PureComponent {
     this.state = {
       map: [],
       movePos: [],
+      playerPoint: 2,
+      AIPoint: 2,
+      winner: '',
     };
   }
 
@@ -25,31 +28,45 @@ class ReversiGame extends PureComponent {
         map[i].push('_');
       }
     }
-    map[3][3] = 'B';
-    map[3][4] = 'W';
-    map[4][3] = 'W';
-    map[4][4] = 'B';
-    console.log(map);
 
-// set up the initial plane
-// map[27].setAttribute("src", value: DOMString)
     this.setState({
       map,
+    });
+
+    $.post('http://18.222.148.18:8007/ReversiInit', {
+      first: '',
+    },
+    (data) => {
+      console.log(data);
+    // change back to json
+      let sendBackData = JSON.parse(data);
+
+    // IDK why this is so magic that I need convert from []byte->string->json
+      sendBackData = JSON.parse(sendBackData);
+      const { Board, UserPoint, AIPoint, Winner } = sendBackData;
+      console.log(Board, UserPoint, AIPoint);
+
+      this.setState({
+        map: Board,
+        playerPoint: UserPoint,
+        AIPoint,
+        winner: Winner,
+      });
     });
   }
 
   sendToBack(target) {
-    console.log(target.target.id);
+    // console.log(target.target.id);
     const curMove = parseInt(target.target.id, 10);
     const curMoveStr = (Math.floor(curMove / 8)).toString() + (curMove % 8).toString();
-    const { map } = this.state;
+    // const { map } = this.state;
 
     const obj = {
       Move: curMoveStr,
     };
 
 
-    $.post('http://localhost:8007/Reversi', {
+    $.post('http://18.222.148.18:8007/Reversi', {
       first: JSON.stringify(obj),
     },
     (data) => {
@@ -59,38 +76,56 @@ class ReversiGame extends PureComponent {
 
     // IDK why this is so magic that I need convert from []byte->string->json
       sendBackData = JSON.parse(sendBackData);
-      const { Board } = sendBackData;
+      const { Board, UserPoint, AIPoint, Winner } = sendBackData;
+      console.log(Board, UserPoint, AIPoint, Winner);
 
       this.setState({
         map: Board,
+        playerPoint: UserPoint,
+        AIPoint,
+        winner: Winner,
       });
     });
   }
 
   render() {
-    const { map } = this.state;
+    const { map, playerPoint, AIPoint, winner } = this.state;
 
     const chessBoard = [];
-    for (let i = 0; i < 8; i += 1) {
-      for (let j = 0; j < 8; j += 1) {
-        if (map[i][j] === 'W') {
-          chessBoard.push(
-            <li key={(i * 8) + j} >
-              <img src={whiteChess} alt="whiteChess" />
-            </li>,
-          );
-        } else if (map[i][j] === 'B') {
-          chessBoard.push(
-            <li key={(i * 8) + j}>
-              <img src={blackChess} alt="blackChess" />
-            </li>,
-          );
-        } else {
-          chessBoard.push(
-            <li key={(i * 8) + j} id={(i * 8) + j} onClick={this.sendToBack.bind(this)} />,
-          );
+    // change to loading later <-----------------------look at this!
+    if (map !== undefined) {
+      for (let i = 0; i < 8; i += 1) {
+        for (let j = 0; j < 8; j += 1) {
+          if (map[i][j] === 'W') {
+            chessBoard.push(
+              <li key={(i * 8) + j} >
+                <img src={whiteChess} alt="whiteChess" />
+              </li>,
+            );
+          } else if (map[i][j] === 'B') {
+            chessBoard.push(
+              <li key={(i * 8) + j}>
+                <img src={blackChess} alt="blackChess" />
+              </li>,
+            );
+          } else {
+            chessBoard.push(
+              <li key={(i * 8) + j} id={(i * 8) + j} onClick={this.sendToBack.bind(this)} />,
+            );
+          }
         }
       }
+    }
+
+    let scoreBoard;
+    if (winner === 'AI') {
+      scoreBoard = <h1 className={styles.header}> AI Wins! </h1>;
+    } else if (winner === 'Player') {
+      scoreBoard = <h1 className={styles.header}> Player Wins! </h1>;
+    } else if (winner === 'Draw') {
+      scoreBoard = <h1 className={styles.header}> Draw! </h1>;
+    } else {
+      scoreBoard = <h1 className={styles.header}> {playerPoint} Vs {AIPoint} </h1>;
     }
 
     return (
@@ -112,7 +147,7 @@ class ReversiGame extends PureComponent {
             </Col>
 
             <Col span={12}>
-              <h1 className={styles.header}> Point Vs Point </h1>
+              {scoreBoard}
             </Col>
 
             <Col span={6}>
