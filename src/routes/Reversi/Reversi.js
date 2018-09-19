@@ -29,44 +29,99 @@ class ReversiGame extends PureComponent {
       }
     }
 
+    map[3][3] = 'W';
+    map[3][4] = 'B';
+    map[4][3] = 'B';
+    map[4][4] = 'W';
+
+    // map[0][0] = "W";
+    // map[0][1] = "W";
+    // map[0][2] = "W";
+    // map[0][3] = "B";
+    // map[0][4] = "B";
+    // map[0][5] = "W";
+    // map[0][7] = "W";
+
+    // map[1][0] = "W";
+    // map[1][1] = "B";
+    // map[1][2] = "B";
+    // map[1][3] = "B";
+    // map[1][4] = "B";
+    // map[1][5] = "B";
+    // map[1][6] = "B";
+    // map[1][7] = "W";
+
+    // map[2][0] = "W";
+    // map[2][1] = "W";
+    // map[2][2] = "B";
+    // map[2][3] = "W";
+    // map[2][4] = "B";
+    // map[2][5] = "W";
+    // map[2][6] = "W";
+    // map[2][7] = "W";
+
+    // map[3][0] = "W";
+    // map[3][1] = "B";
+    // map[3][2] = "B";
+    // map[3][3] = "B";
+    // map[3][4] = "B";
+    // map[3][5] = "B";
+    // map[3][6] = "W";
+    // map[3][7] = "W";
+
+    // map[4][0] = "W";
+    // map[4][2] = "B";
+    // map[4][3] = "B";
+    // map[4][4] = "B";
+    // map[4][5] = "B";
+    // map[4][6] = "B";
+    // map[4][7] = "W";
+
+
+    // map[5][0] = "W";
+    // map[5][4] = "B";
+    // map[5][7] = "B";
+
+
     this.setState({
       map,
     });
 
-    $.post('http://18.222.148.18:8007/ReversiInit', {
-      first: '',
-    },
-    (data) => {
-      console.log(data);
-    // change back to json
-      let sendBackData = JSON.parse(data);
+    // $.post('http://18.222.148.18:8007/ReversiInit', {
+    //   first: '',
+    // },
+    // (data) => {
+    //   console.log(data);
+    // // change back to json
+    //   let sendBackData = JSON.parse(data);
 
-    // IDK why this is so magic that I need convert from []byte->string->json
-      sendBackData = JSON.parse(sendBackData);
-      const { Board, UserPoint, AIPoint, Winner } = sendBackData;
-      console.log(Board, UserPoint, AIPoint);
+    // // IDK why this is so magic that I need convert from []byte->string->json
+    //   sendBackData = JSON.parse(sendBackData);
+    //   const { Board, UserPoint, AIPoint, Winner } = sendBackData;
+    //   console.log(Board, UserPoint, AIPoint);
 
-      this.setState({
-        map: Board,
-        playerPoint: UserPoint,
-        AIPoint,
-        winner: Winner,
-      });
-    });
+    //   this.setState({
+    //     map: Board,
+    //     playerPoint: UserPoint,
+    //     AIPoint,
+    //     winner: Winner,
+    //   });
+    // });
   }
 
   sendToBack(target) {
     // console.log(target.target.id);
     const curMove = parseInt(target.target.id, 10);
     const curMoveStr = (Math.floor(curMove / 8)).toString() + (curMove % 8).toString();
-    // const { map } = this.state;
+    const { map } = this.state;
 
     const obj = {
       Move: curMoveStr,
+      Map: map,
     };
 
-
-    $.post('http://18.222.148.18:8007/Reversi', {
+    $.post('http://localhost:8007/Reversi', {
+    // $.post('http://18.222.148.18:8007/Reversi', {
       first: JSON.stringify(obj),
     },
     (data) => {
