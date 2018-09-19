@@ -113,6 +113,7 @@ class ReversiGame extends PureComponent {
     // console.log(target.target.id);
     const curMove = parseInt(target.target.id, 10);
     const curMoveStr = (Math.floor(curMove / 8)).toString() + (curMove % 8).toString();
+
     const { map } = this.state;
 
     const obj = {
@@ -120,8 +121,8 @@ class ReversiGame extends PureComponent {
       Map: map,
     };
 
-    // $.post('http://localhost:8007/Reversi', {
-    $.post('http://18.222.148.18:8007/Reversi', {
+    $.post('http://localhost:8007/Reversi', {
+    // $.post('http://18.222.148.18:8007/Reversi', {
       first: JSON.stringify(obj),
     },
     (data) => {
