@@ -36,8 +36,17 @@
   background: #364d79;
   overflow: hidden;
   color: #fff;
+  width: 1500px;
+  margin: 10px auto;
 }
 
 .CarouselWord {
   color: #fff;
+}
+
+.CarouseHolder{
+  align-items: center;
+  width: 100%;
+  background-color: red;
+  height: 500px;
 }
