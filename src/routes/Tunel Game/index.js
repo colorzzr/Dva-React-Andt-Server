@@ -42,7 +42,7 @@ class TunelGame extends PureComponent {
       BitMap: bitMap,
     };
 
-    $.post('http://18.222.148.18:4399/systemAns', {
+    $.post('http://18.223.112.55:4399/systemAns', {
       first: JSON.stringify(obj),
     },
     (data) => {
@@ -192,7 +192,7 @@ class TunelGame extends PureComponent {
       BitMap: bitMap,
     };
 
-    $.post('http://18.222.148.18:4399/TunelGameProc', {
+    $.post('http://18.223.112.55:4399/TunelGameProc', {
       first: JSON.stringify(obj),
     },
     (data) => {
