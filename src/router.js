@@ -84,6 +84,7 @@ import Login from './routes/Login';
 import RegisterPage from './routes/Register';
 import TubeGame from './routes/Tunel Game/TubeGame.js';
 import ReversiGame from './routes/Reversi/Reversi.js';
+import PersonalInfo from './routes/Personal Info/PersonInfo.js';
 
 
 function RouterConfig({ history }) {
@@ -98,6 +99,7 @@ function RouterConfig({ history }) {
         <Route path="/Register" exact component={RegisterPage} />
         <Route path="/TunelGame" exact component={TubeGame} />
         <Route path="/Reversi" exact component={ReversiGame} />
+        <Route path="/PersonalInfo" exact component={PersonalInfo} />
 
       </Switch>
     </Router>

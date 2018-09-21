@@ -121,8 +121,8 @@ class ReversiGame extends PureComponent {
       Map: map,
     };
 
-    $.post('http://localhost:8007/Reversi', {
-    // $.post('http://18.222.148.18:8007/Reversi', {
+    // $.post('http://localhost:8007/Reversi', {
+    $.post('http://18.222.1-48.18:8007/Reversi', {
       first: JSON.stringify(obj),
     },
     (data) => {
