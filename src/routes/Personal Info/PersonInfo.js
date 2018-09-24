@@ -1,13 +1,13 @@
 import React, { PureComponent } from 'react';
-import { Card, Collapse, List, Avatar, Icon } from 'antd';
+import { Card, Collapse } from 'antd';
 import myImg from '../../assets/Personal Info/Avtar.jpg';
 import styles from './PersonInfo.less';
-import CollapseBox from './CollapseBox.js'
-import nonProData from './Non-Professional Data.js'
-import proData from './Professional Data.js'
-import acaData from './Academic Career.js'
+import CollapseBox from './CollapseBox.js';
+import nonProData from './Non-Professional Data.js';
+import proData from './Professional Data.js';
+import acaData from './Academic Career.js';
 
-const Panel = Collapse.Panel; 
+const Panel = Collapse.Panel;
 
 class PersonalInfo extends PureComponent {
   render() {
@@ -45,13 +45,13 @@ class PersonalInfo extends PureComponent {
         <div className={styles.mainContent}>
           <Collapse bordered={false} defaultActiveKey={['1']}>
             <Panel header={<h1 className={styles.collapseHeader}>Non-Profossional</h1>} key="1">
-              <CollapseBox data={nonProData}/>
+              <CollapseBox data={nonProData} />
             </Panel>
             <Panel header={<h1 className={styles.collapseHeader}>Professional Experience</h1>} key="2">
-              <CollapseBox data={proData}/>
+              <CollapseBox data={proData} />
             </Panel>
             <Panel header={<h1 className={styles.collapseHeader}>Academic Career</h1>} key="3">
-              <CollapseBox data={acaData}/>
+              <CollapseBox data={acaData} />
             </Panel>
           </Collapse>
         </div>

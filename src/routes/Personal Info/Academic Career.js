@@ -3,7 +3,7 @@ const acaData = [];
 acaData.push({
   title: 'University of Toronto ',
   description: 'Third-year student in computer engineer (2016.9 - now)',
-  content: 'Dean’s List for two years (Average 85+)' + 'CGPA: 3.83',
+  content: 'Dean’s List for two years (Average 85+) CGPA: 3.83',
 });
 
 acaData.push({

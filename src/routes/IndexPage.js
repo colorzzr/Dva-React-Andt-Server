@@ -21,6 +21,8 @@ function IndexPage({ location }) {
         <h3> Calculator Higher Order </h3>
         <h3> Tube Game Page </h3>
         <h3> Login Cookie </h3>
+        <h3> Main Layout </h3>
+
         <br />
         <h1> Done </h1>
         <h3> History Page </h3>
