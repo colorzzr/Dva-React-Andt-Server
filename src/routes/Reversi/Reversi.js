@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import $ from 'jquery';
-import { Row, Col, Button, Icon, Modal } from 'antd';
+import { Row, Col, Button, Modal } from 'antd';
 import styles from './Reversi.less';
 import whiteChess from '../../assets/Reversi/white chess.png';
 import blackChess from '../../assets/Reversi/black chess.png';
@@ -52,8 +52,8 @@ class ReversiGame extends PureComponent {
       Map: map,
     };
 
-    $.post('http://localhost:8007/Reversi', {
-    // $.post('http://18.223.112.55:8007/Reversi', {
+    // $.post('http://localhost:8007/Reversi', {
+    $.post('http://18.223.112.55:8007/Reversi', {
       first: JSON.stringify(obj),
     },
     (data) => {
@@ -75,13 +75,13 @@ class ReversiGame extends PureComponent {
     });
   }
 
-  showRefreshWarning(){
+  showRefreshWarning() {
     this.setState({
       showRefresh: true,
     });
   }
 
-  handleOk(){
+  handleOk() {
     this.setState({
       showRefresh: false,
     });
@@ -89,7 +89,7 @@ class ReversiGame extends PureComponent {
     this.componentWillMount();
   }
 
-  handleCancel(){
+  handleCancel() {
     this.setState({
       showRefresh: false,
     });
@@ -139,7 +139,7 @@ class ReversiGame extends PureComponent {
       <div className={styles.wholeWindow}>
         <h1 className={styles.header}>ReversiGame</h1>
         <Button type="danger" size="default" onClick={this.showRefreshWarning.bind(this)}>Refresh Board</Button>
-        <div className={styles.headHolder}> 
+        <div className={styles.headHolder}>
           <Row>
             <Col span={6}>
               <Row>
