@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import { connect } from 'dva';
 import $ from 'jquery';
 import { Row, Col, Button, Modal } from 'antd';
 import styles from './Reversi.less';
@@ -97,7 +98,10 @@ class ReversiGame extends PureComponent {
 
   render() {
     const { map, playerPoint, AIPoint, winner, showRefresh } = this.state;
-
+    const { loading, login } = this.props;
+    console.log(loading);
+    console.log(loading.models);
+    console.log(login);
     const chessBoard = [];
     // change to loading later <-----------------------look at this!
     if (map !== undefined) {
@@ -189,4 +193,8 @@ class ReversiGame extends PureComponent {
   }
 }
 
-export default ReversiGame;
+export default connect(({ login,historyDatas, loading }) => ({
+  login,
+  historyDatas,
+  loading,
+}))(ReversiGame);
