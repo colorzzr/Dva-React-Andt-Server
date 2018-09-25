@@ -1,13 +1,37 @@
 export default {
   namespace: 'counterMod',
-  state: 0,
-  reducers: {
-    add(state) {
-    // state = state + 1;
-      return state + 1;
+  state: {
+    count:0,
+  },
+  effects:{
+    *add(_, { put }){
+      yield put({
+        type: 'addCount',
+      });
     },
-    minus(state) {
-      return state - 1;
+    *minus(_, { put }){
+      yield put({
+        type: 'minusCount',
+      });
+    }
+  },
+
+
+  reducers: {
+    addCount(state) {
+    // state = state + 1;
+      let {count} = state;
+      count = count + 1
+      return {
+        count,
+      };
+    },
+    minusCount(state) {
+      let {count} = state;
+      count = count - 1
+      return {
+        count,
+      };
     },
   },
 };

@@ -36,7 +36,7 @@ this.lose = this.lose.bind(this);
 }
 */
 
-const Counter = ({ dispatch, counterMod }) => {
+function Counter({ dispatch, counterMod, loading }){
   const style1 = {
     backgroundColor: '#1fde11',
     color: '#324',
@@ -60,11 +60,13 @@ const Counter = ({ dispatch, counterMod }) => {
     });
   }
 
+  console.log(loading); 
+
   return (
     <div>
       <Row>
         <Col style={style1}>
-          <h2>Count:{counterMod}</h2>
+          <h2>Count:{counterMod.count}</h2>
           <Button onClick={add}> add ! </Button>
           <Button onClick={minus}> minus ! </Button>
         </Col>
@@ -75,6 +77,7 @@ const Counter = ({ dispatch, counterMod }) => {
 };
 
 
-export default connect(({ counterMod }) => ({
+export default connect(({ counterMod, loading }) => ({
   counterMod,
+  loading,
 }))(Counter);
