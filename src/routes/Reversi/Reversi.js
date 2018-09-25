@@ -193,7 +193,7 @@ class ReversiGame extends PureComponent {
   }
 }
 
-export default connect(({ login,historyDatas, loading }) => ({
+export default connect(({ login, historyDatas, loading }) => ({
   login,
   historyDatas,
   loading,
