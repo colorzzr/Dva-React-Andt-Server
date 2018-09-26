@@ -16,12 +16,12 @@ export default {
         type: 'minusCount',
       });
     },
-    *spin(_, { call, put }){
-      yield call(test)
+    *spin(_, { call, put }) {
+      yield call(test);
       yield put({
         type: 'wait',
       });
-    }
+    },
   },
 
 
@@ -41,18 +41,18 @@ export default {
         count,
       };
     },
-    wait(state){
-      return{
+    wait(state) {
+      return {
         ...state,
-      }
-    }
+      };
+    },
   },
 };
 
-function test(){
-  console.log("sending");
+function test() {
+  console.log('sending');
   $.post('http://localhost:8007/Loading', {
-    first: "111",
+    first: '111',
   },
   (data) => {
     console.log(data);

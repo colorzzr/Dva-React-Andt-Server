@@ -33,6 +33,7 @@ app.model(require('./models/CounterMod'));
 app.model(require('./models/History'));
 app.model(require('./models/user'));
 app.model(require('./models/login'));
+app.model(require('./models/reversi'));
 
 // 4. Router
 app.router(require('./router'));

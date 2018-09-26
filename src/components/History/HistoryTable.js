@@ -102,8 +102,9 @@ class HistoryTable extends PureComponent {
     const { historyData, count, frequenceData } = historyDatas;
     const { page, pageSize } = this.state;
 
-    console.log(loading.models.historyDatas);
-    
+    // console.log(loading.models.historyDatas);
+    const tabelLoading = loading.models.historyDatas;
+
     // constructe the page footer
     const paginationProps = {
       current: page,

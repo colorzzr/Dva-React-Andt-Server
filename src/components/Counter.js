@@ -63,7 +63,7 @@ function Counter({ dispatch, counterMod, loading }) {
 
   console.log(loading);
   let spinCheck = loading.models.counterMod;
-  if(spinCheck == undefined){
+  if (spinCheck === undefined) {
     spinCheck = false;
   }
 

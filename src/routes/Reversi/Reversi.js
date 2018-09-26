@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'dva';
 import $ from 'jquery';
-import { Row, Col, Button, Modal } from 'antd';
+import { Row, Col, Button, Modal, Spin } from 'antd';
 import styles from './Reversi.less';
 import whiteChess from '../../assets/Reversi/white chess.png';
 import blackChess from '../../assets/Reversi/black chess.png';
@@ -36,8 +36,15 @@ class ReversiGame extends PureComponent {
     map[4][3] = 'B';
     map[4][4] = 'W';
 
-    this.setState({
-      map,
+    const { dispatch } = this.props;
+    dispatch({
+      type: 'reversi/saveMatchInfo',
+      payload: {
+        map,
+        playerPoint: 2,
+        AIPoint: 2,
+        winner: '',
+      },
     });
   }
 
@@ -46,7 +53,8 @@ class ReversiGame extends PureComponent {
     const curMove = parseInt(target.target.id, 10);
     const curMoveStr = (Math.floor(curMove / 8)).toString() + (curMove % 8).toString();
 
-    const { map } = this.state;
+    const { reversi } = this.props;
+    const { map } = reversi;
 
     const obj = {
       Move: curMoveStr,
@@ -67,11 +75,15 @@ class ReversiGame extends PureComponent {
       const { Board, UserPoint, AIPoint, Winner } = sendBackData;
       console.log(Board, UserPoint, AIPoint, Winner);
 
-      this.setState({
-        map: Board,
-        playerPoint: UserPoint,
-        AIPoint,
-        winner: Winner,
+      const { dispatch } = this.props;
+      dispatch({
+        type: 'reversi/saveMatchInfo',
+        payload: {
+          map: Board,
+          playerPoint: UserPoint,
+          AIPoint,
+          winner: Winner,
+        },
       });
     });
   }
@@ -80,6 +92,9 @@ class ReversiGame extends PureComponent {
     this.setState({
       showRefresh: true,
     });
+
+    const { reversi } = this.props;
+    console.log(reversi);
   }
 
   handleOk() {
@@ -97,14 +112,17 @@ class ReversiGame extends PureComponent {
   }
 
   render() {
-    const { map, playerPoint, AIPoint, winner, showRefresh } = this.state;
-    const { loading, login } = this.props;
+    const { showRefresh } = this.state;
+    const { loading, reversi } = this.props;
+    const { map, playerPoint, AIPoint, winner } = reversi;
+    console.log(map, playerPoint, AIPoint, winner);
     console.log(loading);
-    console.log(loading.models);
-    console.log(login);
+    console.log(map.length);
+    const AIthinking = loading.models.reversi;
+
     const chessBoard = [];
     // change to loading later <-----------------------look at this!
-    if (map !== undefined) {
+    if (map !== undefined && map.length !== 0) {
       for (let i = 0; i < 8; i += 1) {
         for (let j = 0; j < 8; j += 1) {
           if (map[i][j] === 'W') {
@@ -176,9 +194,11 @@ class ReversiGame extends PureComponent {
             </Col>
           </Row>
         </div>
-        <ul className={styles.chessplane}>
-          {chessBoard}
-        </ul>
+        <Spin tip="Loading..." spinning={AIthinking}>
+          <ul className={styles.chessplane}>
+            {chessBoard}
+          </ul>
+        </Spin>
 
         <Modal
           visible={showRefresh}
@@ -193,8 +213,7 @@ class ReversiGame extends PureComponent {
   }
 }
 
-export default connect(({ login, historyDatas, loading }) => ({
-  login,
-  historyDatas,
+export default connect(({ loading, reversi }) => ({
   loading,
+  reversi,
 }))(ReversiGame);
