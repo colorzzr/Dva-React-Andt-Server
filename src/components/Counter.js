@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'dva';
-import { Button, Row, Col } from 'antd';
+import { Button, Row, Col, Spin, Alert } from 'antd';
 /*
 class Counter extends React.Component {
   constructor(props) {
@@ -36,7 +36,7 @@ this.lose = this.lose.bind(this);
 }
 */
 
-const Counter = ({ dispatch, counterMod }) => {
+function Counter({ dispatch, counterMod, loading }) {
   const style1 = {
     backgroundColor: '#1fde11',
     color: '#324',
@@ -54,27 +54,43 @@ const Counter = ({ dispatch, counterMod }) => {
       type: 'counterMod/minus',
     });
   }
-  function test() {
+
+  function spin() {
     dispatch({
-      type: 'login/login',
+      type: 'counterMod/spin',
     });
+  }
+
+  console.log(loading);
+  let spinCheck = loading.models.counterMod;
+  if(spinCheck == undefined){
+    spinCheck = false;
   }
 
   return (
     <div>
-      <Row>
-        <Col style={style1}>
-          <h2>Count:{counterMod}</h2>
-          <Button onClick={add}> add ! </Button>
-          <Button onClick={minus}> minus ! </Button>
-        </Col>
-      </Row>
-      <Button onClick={test}> test ! </Button>
+      <Spin tip="Loading..." spinning={spinCheck}>
+        <Alert
+          message="Alert message title"
+          description="Further details about the context of this alert."
+          type="info"
+        />
+        <Row>
+          <Col style={style1}>
+            <h2>Count:{counterMod.count}</h2>
+            <Button onClick={add}> add ! </Button>
+            <Button onClick={minus}> minus ! </Button>
+          </Col>
+        </Row>
+        <Button onClick={spin}> Spinning ! </Button>
+      </Spin>
     </div>
   );
-};
+}
 
 
-export default connect(({ counterMod }) => ({
+export default connect(({ counterMod, loading }) => ({
   counterMod,
+  // loading : loading.models.counterMod,
+  loading,
 }))(Counter);

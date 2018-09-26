@@ -98,10 +98,12 @@ class HistoryTable extends PureComponent {
   }
 
   render() {
-    const { historyDatas } = this.props;
+    const { historyDatas, loading } = this.props;
     const { historyData, count, frequenceData } = historyDatas;
     const { page, pageSize } = this.state;
 
+    console.log(loading.models.historyDatas);
+    
     // constructe the page footer
     const paginationProps = {
       current: page,
@@ -118,6 +120,7 @@ class HistoryTable extends PureComponent {
         <Button onClick={this.test.bind(this)}>test</Button>
         <Table
           columns={columns}
+          loading={tabelLoading}
           dataSource={historyData}
           pagination={paginationProps}
           onChange={this.handleChange.bind(this)}
@@ -135,7 +138,8 @@ class HistoryTable extends PureComponent {
   }
 }
 
-export default connect(({ historyDatas, login }) => ({
+export default connect(({ historyDatas, login, loading }) => ({
   historyDatas,
   login,
+  loading,
 }))(HistoryTable);
