@@ -1,17 +1,39 @@
+import React from 'react';
+
 const proData = [];
 
 proData.push({
-  title: 'Membership in URTA RoboSoccer in University of Toronto',
+  title: 'Membership in UATA RoboSoccer Club in University of Toronto',
   description: 'Working with senior engineering (2016.9 – 2017.9)',
-  content: 'Work in control team under the 3D Robot Simulation group\n' +
-'Focus on the motion of simulated agent',
+  content: <p>
+            The full name of UTRA is University of Toronto Robot Association. The association
+            has three teams. Mech team build the physical robot. AI team develop the algorithm
+            for robots, such as reponse for balls and communication between the agent.
+            Control team uses simulation to test the algorithm and functionality of agent. I
+            was working in control team and learning how to test a simple agent to walk or kick.
+            Later on, I was helping team to design kick strategy.(Adding program Link)
+          </p>,
 });
 
 proData.push({
   title: 'Membership in Engineer Strategy and Practice group',
   description: 'First year project (2017.1 – 2017.4)',
-  content: 'Work in 5 people group for 1 semester\n' +
-'Design the bike racks for Hoard Village Resident Association in Toronto.',
+  content:
+  <div>
+    <p>
+      Engineer Strategy and Practice(ESP) is the first year course to give us a
+      systematic way to design things. Our project was to help Horbour Village
+      Association to tackle the bike thieves. for a semester, I worked with other
+      4 engineer student from different areas. For the design proposal, each of us
+      generate a bike-rack design by self. And later on, we vote a best solution by
+      functionality and survey for village resident.
+    </p>
+    <p>
+      For Final Design Specification, we gave the detail dimension and cost of bike-rack.
+      As well as the installation proccess and so on. I was response for the installation
+      proccess, policy requirement and citen formate.
+    </p>
+  </div>,
 });
 
 proData.push({

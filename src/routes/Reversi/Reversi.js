@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'dva';
 import $ from 'jquery';
-import { Row, Col, Button, Modal, Spin } from 'antd';
+import { Row, Col, Button, Modal } from 'antd';
 import styles from './Reversi.less';
 import whiteChess from '../../assets/Reversi/white chess.png';
 import blackChess from '../../assets/Reversi/black chess.png';
@@ -36,15 +36,18 @@ class ReversiGame extends PureComponent {
     map[4][3] = 'B';
     map[4][4] = 'W';
 
-    const { dispatch } = this.props;
-    dispatch({
-      type: 'reversi/saveMatchInfo',
-      payload: {
-        map,
-        playerPoint: 2,
-        AIPoint: 2,
-        winner: '',
-      },
+    // const { dispatch } = this.props;
+    // dispatch({
+    //   type: 'reversi/saveMatchInfo',
+    //   payload: {
+    //     map,
+    //     playerPoint: 2,
+    //     AIPoint: 2,
+    //     winner: '',
+    //   },
+    // });
+    this.setState({
+      map,
     });
   }
 
@@ -53,16 +56,16 @@ class ReversiGame extends PureComponent {
     const curMove = parseInt(target.target.id, 10);
     const curMoveStr = (Math.floor(curMove / 8)).toString() + (curMove % 8).toString();
 
-    const { reversi } = this.props;
-    const { map } = reversi;
+    // const { reversi } = this.props;
+    const { map } = this.state;
 
     const obj = {
       Move: curMoveStr,
       Map: map,
     };
 
-    // $.post('http://localhost:8007/Reversi', {
-    $.post('http://18.223.112.55:8007/Reversi', {
+    $.post('http://localhost:8007/Reversi', {
+    // $.post('http://18.223.112.55:8007/Reversi', {
       first: JSON.stringify(obj),
     },
     (data) => {
@@ -75,15 +78,21 @@ class ReversiGame extends PureComponent {
       const { Board, UserPoint, AIPoint, Winner } = sendBackData;
       console.log(Board, UserPoint, AIPoint, Winner);
 
-      const { dispatch } = this.props;
-      dispatch({
-        type: 'reversi/saveMatchInfo',
-        payload: {
-          map: Board,
-          playerPoint: UserPoint,
-          AIPoint,
-          winner: Winner,
-        },
+      // const { dispatch } = this.props;
+      // dispatch({
+      //   type: 'reversi/saveMatchInfo',
+      //   payload: {
+      //     map: Board,
+      //     playerPoint: UserPoint,
+      //     AIPoint,
+      //     winner: Winner,
+      //   },
+      // });
+      this.setState({
+        map: Board,
+        playerPoint: UserPoint,
+        AIPoint,
+        winner: Winner,
       });
     });
   }
@@ -112,13 +121,13 @@ class ReversiGame extends PureComponent {
   }
 
   render() {
-    const { showRefresh } = this.state;
-    const { loading, reversi } = this.props;
-    const { map, playerPoint, AIPoint, winner } = reversi;
-    console.log(map, playerPoint, AIPoint, winner);
+    const { showRefresh, map, playerPoint, AIPoint, winner } = this.state;
+    const { loading } = this.props;
+    // const { map, playerPoint, AIPoint, winner } = reversi;
+    // console.log(map, playerPoint, AIPoint, winner);
     console.log(loading);
-    console.log(map.length);
-    const AIthinking = loading.models.reversi;
+    // console.log(map.length);
+    // const AIthinking = loading.models.reversi;
 
     const chessBoard = [];
     // change to loading later <-----------------------look at this!
@@ -194,11 +203,9 @@ class ReversiGame extends PureComponent {
             </Col>
           </Row>
         </div>
-        <Spin tip="Loading..." spinning={AIthinking}>
-          <ul className={styles.chessplane}>
-            {chessBoard}
-          </ul>
-        </Spin>
+        <ul className={styles.chessplane}>
+          {chessBoard}
+        </ul>
 
         <Modal
           visible={showRefresh}

@@ -26,7 +26,7 @@ function IndexPage({ location }) {
         <br />
         <h1> Done </h1>
         <h3> History Page </h3>
-        <h3> Reversi Page </h3>
+        <h3> Reversi Game </h3>
 
       </div>
     </MainLayout>
