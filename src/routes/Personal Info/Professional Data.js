@@ -49,7 +49,7 @@ proData.push({
 
 
 proData.push({
-  title: 'Smart Guide Application”',
+  title: 'Smart Guide Application',
   description: 'ECE297 Communication and Design -> Project “Smart Guide” (2018.1 – 2018.4)',
   content:
   <div>
@@ -76,7 +76,7 @@ proData.push({
 });
 
 proData.push({
-  title: 'Assembly Project “Robot Soccer”',
+  title: 'Assembly Project “Robot Soccer',
   description: 'ECE243 Computer Organization -> Final Project “Robot Soccer” (2018.3 – 2018. 4)',
   content:
   <div>
@@ -152,7 +152,7 @@ proData.push({
   <div>
     <p>
       Engineer Strategy and Practice(ESP) is the first year course to give us a
-      systematic way to design things. Our project was to help Horbour Village
+      systematic way to design things. Our project was to help Horborr Village
       Association to tackle the bike thieves. for a semester, I worked with other
       4 engineer student from different areas. For the design proposal, each of us
       generate a bike-rack design by self. And later on, we vote a best solution by
