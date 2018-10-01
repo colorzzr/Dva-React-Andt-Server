@@ -227,7 +227,7 @@ class ReversiGame extends PureComponent {
 
         <Modal
           visible={showCr}
-          onCancel={this.handleCancel.bind(this)}
+          onClick={this.handleCancel.bind(this)}
         >
           <p>------Team Contributor List------</p>
           <p>Algorithm Designer: Dongfang Cui<a href="https://github.com/kmomuphnie"> git </a></p>
