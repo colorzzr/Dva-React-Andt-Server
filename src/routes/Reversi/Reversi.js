@@ -227,7 +227,6 @@ class ReversiGame extends PureComponent {
 
         <Modal
           visible={showCr}
-          onOk={this.handleOk.bind(this)}
           onCancel={this.handleCancel.bind(this)}
         >
           <p>------Team Contributor List------</p>
