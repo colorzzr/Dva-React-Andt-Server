@@ -251,10 +251,13 @@ class TunelGame extends PureComponent {
   render() {
     return (
       <div>
-        <h1>{map.length}</h1>
-        <ul className={style.map}>
-          {map}
-        </ul>
+        <div className={style.wholeWindow}>
+          <h1 className={style.start}>{'Start Here ->'}</h1>
+          <ul className={style.map}>
+            {map}
+          </ul>
+          <h1 className={style.exit}>{'-> Exit Here'}</h1>
+        </div>
         <Button onClick={this.sendToBack.bind(this)} > Finish </Button>
       </div>
     );
