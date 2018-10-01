@@ -48,6 +48,9 @@ class Header extends PureComponent {
               mode="horizontal"
               theme="dark"
             >
+              <Menu.Item key="/PersonalInfo">
+                <Link to="/PersonalInfo"><Icon type="info-circle" theme="outlined" />Myself</Link>
+              </Menu.Item>
               <Menu.Item key="/">
                 <Link to="/"><Icon type="home" />Home</Link>
               </Menu.Item>
@@ -60,8 +63,11 @@ class Header extends PureComponent {
               <Menu.Item key="/History">
                 <Link to="/History"><Icon type="api" />History</Link>
               </Menu.Item>
-              <Menu.Item key="/TunelGame" className={style.test}>
-                <Link to="/TunelGame"><Icon type="smile" />Game</Link>
+              <Menu.Item key="/TunelGame">
+                <Link to="/TunelGame"><Icon type="smile" />Tube Game</Link>
+              </Menu.Item>
+              <Menu.Item key="/Reversi">
+                <Link to="/Reversi"><Icon type="smile" />Reversi</Link>
               </Menu.Item>
             </Menu>
           </Col>

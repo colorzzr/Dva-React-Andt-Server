@@ -19,6 +19,7 @@ class ReversiGame extends PureComponent {
       AIPoint: 2,
       winner: '',
       showRefresh: false,
+      showCr: false,
     };
   }
 
@@ -101,14 +102,18 @@ class ReversiGame extends PureComponent {
     this.setState({
       showRefresh: true,
     });
+  }
 
-    const { reversi } = this.props;
-    console.log(reversi);
+  showCr() {
+    this.setState({
+      showCr: true,
+    });
   }
 
   handleOk() {
     this.setState({
       showRefresh: false,
+      showCr: false,
     });
 
     this.componentWillMount();
@@ -117,11 +122,12 @@ class ReversiGame extends PureComponent {
   handleCancel() {
     this.setState({
       showRefresh: false,
+      showCr: false,
     });
   }
 
   render() {
-    const { showRefresh, map, playerPoint, AIPoint, winner } = this.state;
+    const { showRefresh, showCr, map, playerPoint, AIPoint, winner } = this.state;
     const { loading } = this.props;
     // const { map, playerPoint, AIPoint, winner } = reversi;
     // console.log(map, playerPoint, AIPoint, winner);
@@ -169,7 +175,10 @@ class ReversiGame extends PureComponent {
     return (
       <div className={styles.wholeWindow}>
         <h1 className={styles.header}>ReversiGame</h1>
-        <Button type="danger" size="default" onClick={this.showRefreshWarning.bind(this)}>Refresh Board</Button>
+        <div>
+          <Button type="danger" size="default" onClick={this.showRefreshWarning.bind(this)}>Refresh Board</Button>
+          <Button type="danger" size="default" onClick={this.showCr.bind(this)}>Credit</Button>
+        </div>
         <div className={styles.headHolder}>
           <Row>
             <Col span={6}>
@@ -214,6 +223,17 @@ class ReversiGame extends PureComponent {
         >
           <p>------Warning!------</p>
           <p>You will lose all procedure</p>
+        </Modal>
+
+        <Modal
+          visible={showCr}
+          onOk={this.handleOk.bind(this)}
+          onCancel={this.handleCancel.bind(this)}
+        >
+          <p>------Team Contributor List------</p>
+          <p>Algorithm Designer: Dongfang Cui<a href="https://github.com/kmomuphnie"> git </a></p>
+          <p>Web Designer && Back-front Connection: Zhiren Zhan</p>
+          <p>Alpha Tester: Yueshuang Zhang, Yuqing Li</p>
         </Modal>
       </div>
     );

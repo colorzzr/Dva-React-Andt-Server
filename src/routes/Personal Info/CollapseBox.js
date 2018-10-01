@@ -1,14 +1,14 @@
 import React, { PureComponent } from 'react';
-import { List, Avatar, Icon } from 'antd';
+import { List, Avatar } from 'antd';
 // import styles from './PersonInfo.less';
 
 
-const IconText = ({ type, texts }) => (
-  <span>
-    <Icon type={type} style={{ marginRight: 8 }} />
-    {texts}
-  </span>
-);
+// const IconText = ({ type, texts }) => (
+//   <span>
+//     <Icon type={type} style={{ marginRight: 8 }} />
+//     {texts}
+//   </span>
+// );
 
 class CollapseBox extends PureComponent {
   render() {
@@ -27,11 +27,10 @@ class CollapseBox extends PureComponent {
         renderItem={item => (
           <List.Item
             key={item.title}
-            actions={[<IconText type="star-o" text="156" />, <IconText type="like-o" text="156" />, <IconText type="message" text="2" />]}
           >
             <List.Item.Meta
               avatar={<Avatar src={item.avatar} />}
-              title={<a href={item.href}>{item.title}</a>}
+              title={item.title}
               description={item.description}
             />
             {item.content}
@@ -42,3 +41,7 @@ class CollapseBox extends PureComponent {
 }
 
 export default CollapseBox;
+
+
+// actions={[<IconText type="star-o" text="156" />,
+// <IconText type="like-o" text="156" />, <IconText type="message" text="2" />]}
