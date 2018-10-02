@@ -7,6 +7,20 @@ import whiteChess from '../../assets/Reversi/white chess.png';
 import blackChess from '../../assets/Reversi/black chess.png';
 // import ableMove from '../../assets/Reversi/able move chess.png';
 
+function info() {
+  // this.funcName = 'info';
+  Modal.info({
+    title: '------Team Contributor List------',
+    content: (
+      <div>
+        <p>Algorithm Designer: <a href="https://github.com/kmomuphnie"> Dongfang Cui </a></p>
+        <p>Web Designer && Back-front Connection: Zhiren Zhan</p>
+        <p>Alpha Tester: Yueshuang Zhang, Yuqing Li</p>
+      </div>
+    ),
+    onOk() {},
+  });
+}
 
 class ReversiGame extends PureComponent {
   constructor(props) {
@@ -104,11 +118,6 @@ class ReversiGame extends PureComponent {
     });
   }
 
-  showCr() {
-    this.setState({
-      showCr: true,
-    });
-  }
 
   handleOk() {
     this.setState({
@@ -123,21 +132,6 @@ class ReversiGame extends PureComponent {
     this.setState({
       showRefresh: false,
       showCr: false,
-    });
-  }
-
-  info() {
-    this.funcName = 'info';
-    Modal.info({
-      title: '------Team Contributor List------',
-      content: (
-        <div>
-          <p>Algorithm Designer: <a href="https://github.com/kmomuphnie"> Dongfang Cui </a></p>
-          <p>Web Designer && Back-front Connection: Zhiren Zhan</p>
-          <p>Alpha Tester: Yueshuang Zhang, Yuqing Li</p>
-        </div>
-      ),
-      onOk() {},
     });
   }
 
@@ -187,7 +181,7 @@ class ReversiGame extends PureComponent {
         <h1 className={styles.header}>ReversiGame</h1>
         <div>
           <Button type="danger" size="default" onClick={this.showRefreshWarning.bind(this)}>Refresh Board</Button>
-          <Button size="default" onClick={this.info}>Credit</Button>
+          <Button size="default" onClick={info}>Credit</Button>
         </div>
         <div className={styles.headHolder}>
           <Row>
