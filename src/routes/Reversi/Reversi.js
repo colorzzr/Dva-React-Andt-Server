@@ -126,14 +126,24 @@ class ReversiGame extends PureComponent {
     });
   }
 
+  info() {
+    this.funcName = 'info';
+    Modal.info({
+      title: '------Team Contributor List------',
+      content: (
+        <div>
+          <p>Algorithm Designer: <a href="https://github.com/kmomuphnie"> Dongfang Cui </a></p>
+          <p>Web Designer && Back-front Connection: Zhiren Zhan</p>
+          <p>Alpha Tester: Yueshuang Zhang, Yuqing Li</p>
+        </div>
+      ),
+      onOk() {},
+    });
+  }
+
   render() {
-    const { showRefresh, showCr, map, playerPoint, AIPoint, winner } = this.state;
-    const { loading } = this.props;
-    // const { map, playerPoint, AIPoint, winner } = reversi;
-    // console.log(map, playerPoint, AIPoint, winner);
-    console.log(loading);
-    // console.log(map.length);
-    // const AIthinking = loading.models.reversi;
+    const { showRefresh, map, playerPoint, AIPoint, winner } = this.state;
+    // const { loading } = this.props;
 
     const chessBoard = [];
     // change to loading later <-----------------------look at this!
@@ -177,7 +187,7 @@ class ReversiGame extends PureComponent {
         <h1 className={styles.header}>ReversiGame</h1>
         <div>
           <Button type="danger" size="default" onClick={this.showRefreshWarning.bind(this)}>Refresh Board</Button>
-          <Button type="danger" size="default" onClick={this.showCr.bind(this)}>Credit</Button>
+          <Button size="default" onClick={this.info}>Credit</Button>
         </div>
         <div className={styles.headHolder}>
           <Row>
@@ -223,16 +233,6 @@ class ReversiGame extends PureComponent {
         >
           <p>------Warning!------</p>
           <p>You will lose all procedure</p>
-        </Modal>
-
-        <Modal
-          visible={showCr}
-          onClick={this.handleCancel.bind(this)}
-        >
-          <p>------Team Contributor List------</p>
-          <p>Algorithm Designer: Dongfang Cui<a href="https://github.com/kmomuphnie"> git </a></p>
-          <p>Web Designer && Back-front Connection: Zhiren Zhan</p>
-          <p>Alpha Tester: Yueshuang Zhang, Yuqing Li</p>
         </Modal>
       </div>
     );
