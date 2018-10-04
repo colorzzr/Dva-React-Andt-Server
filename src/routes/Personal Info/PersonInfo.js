@@ -27,7 +27,7 @@ class PersonalInfo extends PureComponent {
               <p> School: University of Toronto</p>
             </Card>
             <Card className={styles.shortInfoCard}>
-              <p> Grade: Third Year Electric and Computer Engineer</p>
+              <p> Grade: Third Year Electrical and Computer Engineer</p>
             </Card>
             <Card className={styles.shortInfoCard}>
               <p> Language: C, C++, Go, Javascript, Swift</p>

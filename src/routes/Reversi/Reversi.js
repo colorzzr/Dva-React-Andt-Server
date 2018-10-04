@@ -7,6 +7,20 @@ import whiteChess from '../../assets/Reversi/white chess.png';
 import blackChess from '../../assets/Reversi/black chess.png';
 // import ableMove from '../../assets/Reversi/able move chess.png';
 
+function info() {
+  // this.funcName = 'info';
+  Modal.info({
+    title: '------Team Contributor List------',
+    content: (
+      <div>
+        <p>Algorithm Designer: <a href="https://github.com/kmomuphnie"> Dongfang Cui </a></p>
+        <p>Web Designer && Back-front Connection: Zhiren Zhan</p>
+        <p>Alpha Tester: Yueshuang Zhang, Yuqing Li</p>
+      </div>
+    ),
+    onOk() {},
+  });
+}
 
 class ReversiGame extends PureComponent {
   constructor(props) {
@@ -19,6 +33,7 @@ class ReversiGame extends PureComponent {
       AIPoint: 2,
       winner: '',
       showRefresh: false,
+      showCr: false,
     };
   }
 
@@ -101,14 +116,13 @@ class ReversiGame extends PureComponent {
     this.setState({
       showRefresh: true,
     });
-
-    const { reversi } = this.props;
-    console.log(reversi);
   }
+
 
   handleOk() {
     this.setState({
       showRefresh: false,
+      showCr: false,
     });
 
     this.componentWillMount();
@@ -117,17 +131,13 @@ class ReversiGame extends PureComponent {
   handleCancel() {
     this.setState({
       showRefresh: false,
+      showCr: false,
     });
   }
 
   render() {
     const { showRefresh, map, playerPoint, AIPoint, winner } = this.state;
-    const { loading } = this.props;
-    // const { map, playerPoint, AIPoint, winner } = reversi;
-    // console.log(map, playerPoint, AIPoint, winner);
-    console.log(loading);
-    // console.log(map.length);
-    // const AIthinking = loading.models.reversi;
+    // const { loading } = this.props;
 
     const chessBoard = [];
     // change to loading later <-----------------------look at this!
@@ -169,7 +179,10 @@ class ReversiGame extends PureComponent {
     return (
       <div className={styles.wholeWindow}>
         <h1 className={styles.header}>ReversiGame</h1>
-        <Button type="danger" size="default" onClick={this.showRefreshWarning.bind(this)}>Refresh Board</Button>
+        <div>
+          <Button type="danger" size="default" onClick={this.showRefreshWarning.bind(this)}>Refresh Board</Button>
+          <Button size="default" onClick={info}>Credit</Button>
+        </div>
         <div className={styles.headHolder}>
           <Row>
             <Col span={6}>
