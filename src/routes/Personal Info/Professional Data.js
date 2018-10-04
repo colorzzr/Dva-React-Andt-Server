@@ -40,71 +40,69 @@ proData.push({
   title: '2017 Hackathon in ShangHai',
   description: 'Optimizing the energy Allocation for given senario (2017.3.17)',
   content:
-    <div>
-      <p>
-        I had the leadership in the team of four. We decided to make the smart wheelchair by 
-        brainstorming. The aim for the smart wheelchair is to tackle the aging population in 
+  <div>
+    <p>
+        I had the leadership in the team of four. We decided to make the smart wheelchair by
+        brainstorming. The aim for the smart wheelchair is to tackle the aging population in
         China.
       </p>
-      <p>
-        The Smart Wheel has two transform type. one is the normal wheelchair for siting and 
-        moving for who barely walk. another type is walk stick. this type can help elderly to 
+    <p>
+        The Smart Wheel has two transform type. one is the normal wheelchair for siting and
+        moving for who barely walk. another type is walk stick. this type can help elderly to
         walking around and do exercise
       </p>
-      <p>
+    <p>
         I was the main structure design for wheelchair using Arduino. To make it transformable,
-        I build lots of flexible unit. And also, I engaged in AI design team by using C and 
-        corrosponding Arduino libraries. For example, we come up the safety control. when the 
+        I build lots of flexible unit. And also, I engaged in AI design team by using C and
+        corrosponding Arduino libraries. For example, we come up the safety control. when the
         slope of ground is greater than 20 degrees, the maximum speed is reduce to 30km/h.
       </p>
-    </div>,
+  </div>,
 });
 
 proData.push({
   title: 'Game Project “Zero Hero4”',
   description: 'ECE241 Digital System -> Final Project “Zero Hero4” (2017.11.8 – 11.29)',
   content:
-    <div>
-      <p>
-        There is nothing better than when other people is playing the game I made. So for the 
+  <div>
+    <p>
+        There is nothing better than when other people is playing the game I made. So for the
         course project, I decided to using De1-Soc board with keyboard and VGA to make a game.
         I was response for designing hand-shake structure and random algorithm.
       </p>
-      <p>
-        ZeroHero 4 is the 4th version in ZeroHero Game. 1st and 2nd version was using C to 
+    <p>
+        ZeroHero 4 is the 4th version in ZeroHero Game. 1st and 2nd version was using C to
         pratice the stirng operation. 3rd version was in C++ to pratice the struct and class.
-        Now 4th version was using Quartus application and hand-shake method to finish a lot of 
+        Now 4th version was using Quartus application and hand-shake method to finish a lot of
         game operation
       </p>
-      <p>
+    <p>
         ZeroHero is the game that player as a hero to defeat the boss and the game maker(me :) ).
-        Player need to beat monster to gain experience for leveling up in order to take down the 
-        boss from 4 different difficluty. ZeroHero 4 has almost every basic RPG element include 
+        Player need to beat monster to gain experience for leveling up in order to take down the
+        boss from 4 different difficluty. ZeroHero 4 has almost every basic RPG element include
         character attribute, items, money system. The best feature is random Algorithm for Rougue-
-        like. I used the defect of clock in side De1-Soc board for every player. Each game would 
-        start with different birth location and initial character attribure.   
+        like. I used the defect of clock in side De1-Soc board for every player. Each game would
+        start with different birth location and initial character attribure.
       </p>
-    </div>,
+  </div>,
 });
 
 proData.push({
   title: 'Assembly Project “Robot Soccer”',
   description: 'ECE243 Computer Organization -> Final Project “Robot Soccer” (2018.3 – 2018. 4)',
-  content: 'Lego Block robot with DE1-Soc Board.' +
-'FPGA with Assembly Program to control the robot and showing the score with VGA monitor.',
   content:
-    <div>
-      <p>
-        Robot Soccer is divided into two part. We use laser detector to make soccer goal, and 
-        Lego controller for the robot. all two part is controlled by De1-Soc FPGA board. The 
-        control system is designed by assembly. Also there are other devices such as VGA monitor 
+  <div>
+    <p>
+        Robot Soccer is divided into two part. We use laser detector to make soccer goal, and
+        Lego controller for the robot. all two part is controlled by De1-Soc FPGA board. The
+        control system is designed by assembly. Also there are other devices such as VGA monitor
         , keyboard and sound.
       </p>
-      <p>
-        Player use the keyboard to control the robot moving and kicking. when there is goal, system 
+    <p>
+        Player use the keyboard to control the robot moving and kicking. when there is goal, system
         would play a song written in binary and add score on VGA monitor.
       </p>
-    </div>,
+  </div>,
 
 });
 
