@@ -38,7 +38,6 @@ app.model(require('./models/reversi'));
 // 4. Router
 app.router(require('./router'));
 
-console.log(Parse.Config);
 
 // 5. Start
 app.start('#root');

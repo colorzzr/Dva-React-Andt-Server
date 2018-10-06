@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'dva';
+import { Link } from 'dva/router';
 import { Button, Row, Col, Spin, Alert } from 'antd';
 /*
 class Counter extends React.Component {
@@ -61,6 +62,8 @@ function Counter({ dispatch, counterMod, loading }) {
     });
   }
 
+  const value = 12313213
+
   console.log(loading);
   let spinCheck = loading.models.counterMod;
   if (spinCheck === undefined) {
@@ -82,7 +85,9 @@ function Counter({ dispatch, counterMod, loading }) {
             <Button onClick={minus}> minus ! </Button>
           </Col>
         </Row>
-        <Button onClick={spin}> Spinning ! </Button>
+        <Link to={`/Users/${value}`}>
+          <Button>查看详情</Button>
+        </Link>
       </Spin>
     </div>
   );
