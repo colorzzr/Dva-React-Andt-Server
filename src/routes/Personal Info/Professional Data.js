@@ -81,17 +81,22 @@ proData.push({
   content:
   <div>
     <p>
-      Robot Soccer is divided into two part. We use laser detector to make soccer goal, and
-      Lego controller for the robot. all two part is controlled by De1-Soc FPGA board. The
-      control system is designed by assembly. Also there are other devices such as VGA monitor
-      , keyboard and sound.
-    </p>
+        I had the leadership in the team of four. We decided to make the smart wheelchair by
+        brainstorming. The aim for the smart wheelchair is to tackle the aging population in
+        China.
+      </p>
     <p>
-      Player use the keyboard to control the robot moving and kicking. when there is goal, system
-      would play a song written in binary and add score on VGA monitor.
-    </p>
+        The Smart Wheel has two transform type. one is the normal wheelchair for siting and
+        moving for who barely walk. another type is walk stick. this type can help elderly to
+        walking around and do exercise
+      </p>
+    <p>
+        I was the main structure design for wheelchair using Arduino. To make it transformable,
+        I build lots of flexible unit. And also, I engaged in AI design team by using C and
+        corrosponding Arduino libraries. For example, we come up the safety control. when the
+        slope of ground is greater than 20 degrees, the maximum speed is reduce to 30km/h.
+      </p>
   </div>,
-
 });
 
 proData.push({
